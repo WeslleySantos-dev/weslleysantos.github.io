@@ -1,0 +1,48 @@
+.sub-card {
+    background-color: aqua;
+    /* superior | direita | inferior | esquerda */
+    padding: 0rem 1rem 2rem 1rem;
+    width: 25rem;
+    flex-direction: column;
+    border-radius: 1rem;
+
+}
+
+.sub-banner {
+    height:calc(100% - 8.05rem);
+    background-image: url('../../../assets/Imagens/banner_login.jpg');
+    background-size: 100% 100%;
+}
+
+.sub-card h2 {
+    margin-top: 1rem;
+    font-size: 2rem;
+}
+.sub {
+    display: flex;
+    width: 100%;
+    align-items: flex-end;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-between;
+    padding-bottom: 0.4rem;
+}
+.sub input{
+    display: block;
+    width: 70rem;
+}
+.sub label{width: 25rem;
+    text-align: end;
+}
+
+.sub-card  {
+    display: inline-block;
+    flex-direction: row;
+
+}
+
+.submit_sub{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}

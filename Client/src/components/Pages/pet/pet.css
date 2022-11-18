@@ -1,0 +1,70 @@
+#img {
+    margin-top: 0;
+    margin-bottom: 2.4rem;
+    width: 66rem;
+    height: 27rem;
+}
+
+.Myhistory {
+    font-size: 1rem !important;
+    text-align: left;
+    color: rgb(48, 29, 16) !important;
+
+}
+
+.Myhistory h3 {
+    font-weight: 600;
+    font-size: 18PX;
+    color: rgba(55, 33, 18, 0.753);
+
+}
+
+.adoption {
+    display: flex;
+    padding-inline: 6rem;
+    width: 57rem;
+    margin: 0 auto !important;
+    flex-direction: column;
+    font-family: avenir-lt-w01_35-light1475496, avenir-lt-w05_35-light, sans-serif;
+    font-size: 1.4rem;
+    line-height: 2rem;
+
+
+}
+
+.Pet  {
+    font-weight: normal;
+    font-size: 1rem !important;
+    width: 100%;
+    text-align: start;
+
+}
+
+.Petinfo {
+    font-weight: bold;
+    text-align: start;
+    font-size: 1.1rem !important; 
+    line-height: 1rem;
+    color: rgb(48, 29, 16);
+}
+
+.Pet a {
+    font-weight: bold;
+    color: rgb(48, 29, 16);
+}
+
+.NewPet {
+    display: flex;
+    width: 100%;
+    padding-left: 0rem;
+    text-align: start;
+}
+
+#NewPet {
+    display: flex;
+    flex-direction: column;
+}
+
+#Adopt a {
+    color: rgba(55, 33, 18, 0.753);
+}

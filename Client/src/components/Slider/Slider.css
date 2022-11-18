@@ -1,0 +1,134 @@
+.slider {
+    margin: 0 auto;
+    width: 800px;
+    height: 400px;
+    max-width: 80vw;
+    max-height: 50vh;
+    overflow: hidden;
+
+}
+
+
+
+.slides {
+    width: 400%;
+    height: 100%;
+    display: flex;
+}
+
+.slides input {
+    display: none;
+}
+
+.Slide {
+    width: 25%;
+    position: relative;
+
+}
+
+
+
+.Slide img {
+    width: 100%;
+    height: 100%;
+}
+
+.manual-navigation {
+    position: relative;
+    margin-top: -2.4rem;
+    display: flex;
+    justify-content: center;
+
+}
+
+.manual-btn {
+    border: 2px solid rgba(247, 183, 151, 1);
+    padding: 3px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child) {
+    margin-right: 0.6rem;
+
+}
+
+.manual-btn:hover {
+    background-color: white;
+}
+
+
+#radio1:checked~.first {
+    margin-left: -0%;
+    transition: 1.5s;
+
+}
+
+#radio2:checked~.first {
+    margin-left: -25%;
+    transition: 1.5s;
+}
+
+#radio3:checked~.first {
+    margin-left: -50%;
+    transition: 1.5s;
+}
+
+#radio4:checked~.first {
+    margin-left: -75%;
+    transition: 1.5s;
+}
+
+
+.clickadd {
+    align-content: flex-end;
+}
+
+
+
+
+.clickadd a {
+    display: flex !important;
+    position: relative;
+    width: fit-content;
+
+    background-color: rgb(163, 74, 33);
+    color: rgb(244, 235, 230) !important;
+
+    border-color: rgb(244, 235, 230);
+    border-style: solid;
+    border-radius: 0.3rem;
+
+    text-align: right;
+    font-size: 0.9rem;
+
+
+    justify-content: end;
+    padding: 0.05rem;
+    border-width: 0.1rem;
+
+}
+
+.clickadd:hover>a {
+    background-color: rgb(244, 235, 230);
+
+    border-color: rgb(163, 74, 33);
+    color: rgb(163, 74, 33) !important;
+
+
+}
+
+.clickadd {
+
+    display: inline-block;
+    width: max-content;
+}
+
+#rodbanner {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    margin: top -1rem;
+
+}

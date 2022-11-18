@@ -1,0 +1,56 @@
+
+.Products{
+    display: inline-block;
+    flex-direction: row;
+
+}
+
+
+.Product{
+    display: flex;
+    padding: 1rem;
+    justify-content: space-between;
+    flex-direction: column;
+    text-align: left;
+    max-width: 9.25rem;
+}
+
+.Product p{
+    color:  rgb(114, 70, 13);
+    margin: 0rem;
+}
+
+
+.ImgProduct {
+    Width: 9.25rem;
+    height: 9.25rem;
+}
+
+
+.ButtonBuy{
+    color:  rgb(244, 235, 230);
+    background-color: rgb(114, 70, 13);
+    border: 0.1em;
+    border-style: solid;
+    padding: 0.6rem;
+}
+
+
+.ButtonBuy {
+    background-color: rgb(163, 74, 33);
+    padding: 0.2rem;
+    border: 0.1em;
+    border-color: rgb(163, 74, 33);
+    border-style: solid;
+    color: rgb(244, 235, 230);
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.ButtonBuy:hover {
+    background-color: rgb(244, 235, 230);
+        border-color: rgb(163, 74, 33);
+    color: rgb(48, 29, 16) ;
+
+}
