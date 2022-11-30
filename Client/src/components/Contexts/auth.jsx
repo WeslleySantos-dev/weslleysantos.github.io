@@ -12,18 +12,17 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setloading] = useState(true);
 
-
     useEffect(() => {
         setloading(true);
         const recover = localStorage.getItem('Usuario');
         const Usuario = JSON.parse(recover);
-        console.log(Usuario);
         if (Usuario) {
             // document.getElementById('btnlogin').innerHTML = (`<a href="">${Usuario.Nome}</a>`);
             document.getElementById('btnlogin').innerHTML = (`<a href="">${Usuario.Nome}
             <ul>
                 <li className='submenu'><a href="/settings">Configurações</a></li>
                 <li className='submenu'><a href="/logout">Logout</a></li>
+                <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
             </ul></a>`);
             setUser({
                 ID: (Usuario.id),
@@ -38,11 +37,11 @@ export const AuthProvider = ({ children }) => {
     }
         , []);
 
-    const login = async (login, password) => {
+    const login = async (Login, password) => {
         setloading(true);
-        console.log("login", { login, password });
+        console.log("login", { Login, password });
         await API.post('/login', {
-            Login: login,
+            Login: Login,
             password: password
         }).then((response) => {
             console.log(response.data.token);
@@ -60,16 +59,86 @@ export const AuthProvider = ({ children }) => {
                     Usuario: (Usuario.Usuario),
                     email: (Usuario.email)
                 });
+                if (!user) {
+                    navigate('/');
+                    window.location.reload();
+                }
             }
         });
         setloading(false);
 
-        if (!user) {
-            navigate('/');
-            window.location.reload();
-        }
 
     };
+
+    const forgot = async (params) => {
+        console.log(params.fone != undefined);
+        const login = params.login
+        var fone = ''
+        if (params.fone != undefined) {
+            fone = params.fone
+        }
+        if (params.fone === undefined) {
+            console.log("forgot", { login });
+            await API.post('/forgot/login', {
+                parametro: params.login
+            }).then((response) => {
+                var mensagem = JSON.stringify(response.data)
+                var Mensagem = JSON.parse(mensagem);
+                console.log(Mensagem.response);
+                console.log(mensagem);
+                if (Mensagem.mensagem !== undefined) {
+                    document.getElementById('inputemail').innerText = `${Mensagem.response}`
+                } else {
+                    var INPUTfone = document.getElementById("_fone");
+                    INPUTfone.style.display = 'flex';
+                    var id = response.data.id[0].id
+                    console.log(id)
+                    
+
+                    localStorage.setItem('user', id);
+                    const token = localStorage.getItem('user');
+                    console.log(token)
+
+                }
+            })
+        } else if (fone) {
+            console.log("forgot", { fone });
+            await API.post('/forgot/fone', {
+                parametro: fone
+            }).then((response) => {
+                var mensagem = JSON.stringify(response.data)
+                var Mensagem = JSON.parse(mensagem);
+                console.log(Mensagem.mensagem);
+                console.log(mensagem);
+                if (Mensagem.mensagem !== undefined) {
+                    document.getElementById('mensagem').innerText = `${Mensagem.mensagem}`
+                } else {
+                    var id = response.data.id[0].id
+                    const idemail = localStorage.getItem('user');
+                    var iduser = JSON.parse(idemail);
+                    console.log(id)
+                    console.log(iduser)
+                    if (id==idemail){
+                        var Newpassword = document.getElementById("_password");
+                        var confirmPassword = document.getElementById("_Newpassword");
+                        var login = document.getElementById("_login");
+                        var fone = document.getElementById("_fone");
+                        login.style.display ='none';
+                        fone.style.display ='none';
+                        confirmPassword.style.display = 'flex';
+                        Newpassword.style.display = 'flex';
+                        
+                        var login = document.getElementById("login");
+                        var fone = document.getElementById("fone");
+                        console.log(login.value)
+                        console.log(fone.value)
+                       
+
+                    }else{document.getElementById('mensagem').innerText = `Este numero de celular já está vinculado a outro usuario`}
+                }
+            })
+        }
+    }
 
     const logout = async () => {
         console.log('Logout sendo usado');
@@ -78,31 +147,96 @@ export const AuthProvider = ({ children }) => {
         setloading(false);
     };
 
-    const signup =()=>{
+    const signup = () => {
         navigate('/subscription');
     };
-    const sub = async () => {
+    const sub = async (nome, sobrenome, email, login, passUser, fone, pessoa, cpfCnpj) => {
         console.log('subscription sendo usado');
+        await API.post('/update/newuser', {
+            Nome: nome,
+            Sobrenome: sobrenome,
+            Email: email,
+            Login: login,
+            PassUser: passUser,
+            Fone: fone,
+            Pessoa: pessoa,
+            CpfCnpj: cpfCnpj
+        }).then(
+            (response) => {
+                var Mensagem = response.data.mensagem
+                console.log(Mensagem);
+                document.getElementById('mensagem').innerText = Mensagem;
+                localStorage.clear();
 
-        await API.post('/newuser', {
-            Nome,
-            Sobrenome,
-            Email,
-            Usuario,
-            Login,
-            PassUser,
-            Fone,
-            Pessoa,
-            CpfCnpj
-        }).then((response) => {
-            console.log(response);
-            localStorage.setItem('NewUser', 'Usuario Cadastrado com sucesso!')
-        });
+                setTimeout(function () {
+                    navigate('/login');
+                }, 4000);
+
+            }
+        );
         setloading(false);
     };
 
+    const newPet = async (Nome,Idade,Sexo,Peso,Porte,Raca,Desc,Date,Fone,Imagem,Uf,Cidade,Usuario) => {
+        console.log('subscription sendo usado');
+        console.log(Nome,Idade,Sexo,Peso,Porte,Raca,Desc,Date,Fone,Imagem,Uf,Cidade,Usuario);
+
+        await API.post('/pets/newpet', {
+            Nome:Nome,
+            Idade:Idade,
+            Sexo:Sexo,
+            Peso:Peso,
+            Porte :Porte,
+            Raca: Raca,
+            Desc: Desc,
+            Date: Date,
+            Fone: Fone,
+            Imagem: Imagem,
+            Uf:Uf,
+            Cidade: Cidade,
+            Usuario: Usuario
+        }).then(
+            (response) => {
+                var Mensagem = response.data.mensagem;
+                console.log(Mensagem);
+                document.getElementById('mensagem').innerText = Mensagem
+                localStorage.clear();
+
+                setTimeout(function () {
+                    navigate('/login');
+                }, 4000);
+
+            }
+        );
+        setloading(false);
+    };
+
+
+
+    const forgotupdate = async (id,password)=>{
+        
+        await API.patch('/update/password', {
+            id: id,
+            parametro: password
+        }).then((response) => {
+            console.log(response.data);
+            console.log(response.data.mensagem);
+            var Mensagem = response.data.mensagem
+                console.log(Mensagem);
+                document.getElementById('mensagem').innerText = Mensagem;
+            
+        });
+        setloading(false);
+
+        setTimeout(function () {
+            navigate('/login');
+        }, 4000);
+
+
+    }
+
     return (
-        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, sub ,signup}}
+        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, sub, newPet, signup, forgot,forgotupdate }}
         >{children}
         </AuthContext.Provider>
 

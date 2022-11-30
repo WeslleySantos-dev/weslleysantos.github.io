@@ -5,7 +5,9 @@ import Login from "../Pages/Login/Login"
 import Logout from "../Pages/Login/logout"
 import Sub from "../Pages/newUser/subscribe"
 import Pet from "../Pages/pet/pet"
+import Forgot from "../Pages/Forgot/forgot"
 import App from '../../App'
+import NewPet from "../Pages/pet/newpet"
 
 import React, { useContext } from "react"
 
@@ -35,8 +37,10 @@ export default function AppRoutes() {
                     <Route exact path="/" element={<HomePage />} />
                     <Route exact path="/pet/:idPet" element={<Pet />} />
                     <Route exact path="/pet" element={<Private><Pet /></Private>} />
+                    <Route exact path="/newpet" element={<Private><NewPet /></Private>} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/logout" element={<Logout />} />
+                    <Route exact path="/forgot" element={<Forgot />} />
                     <Route exact path="/subscription" element={<Sub />} />
                     <Route exact path="/pets" element={<Adoption />} />
                 </Routes>

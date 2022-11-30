@@ -5,23 +5,27 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 
 const rotaPets = require('./routes/pets');
+const rotaBanner = require('./routes/banner');
 const rotaPet = require('./routes/pet');
 const rotaLogin = require('./routes/login');
 const rotaUpdate = require('./routes/update');
+const rotaForgot = require('./routes/forgot');
 const auth = require('./routes/auth');
 
 app.use(morgan('dev'));
-app.use(bodyParser.urlencoded({ extended: false })); //ACEITA APENAS DADOS SIMPLES
-app.use(bodyParser.json()); //JSON DE ENTRADA NO BODY
-
 app.use(cors());
+app.use(bodyParser.urlencoded({ limit: '1mb', extended: false })); //ACEITA APENAS DADOS SIMPLES
+app.use(bodyParser.json({ limit: '1mb' })); //JSON DE ENTRADA NO BODY
+
 app.use((req, res, next) => {
 
-    req.header('Acces-Control-Allow-Origin', '*') //ACESSIVEL A TODOS SERVERS '*'
-    req.header('Acces-control-Allow-Header', 'Origin, X-requested-With, Content-Type, Accept, Authorization');
+    req.header('Access-Control-Allow-Origin', '*') //ACESSIVEL A TODOS SERVERS '*'
+    req.header('Access-control-Allow-Header', 'Origin, X-requested-With, Content-Type, Accept, Authorization');
+    res.header('Access-Control-Allow-Methods', 'PUT,POST,PATCH,GET,DELETE');
+    console.log(req.method);
     if (req.method === 'OPTIONS') {
-        res.header('Acces-Control-Allow-Methods', 'PUT,POST,PATCH,GET,DELETE');
-        return res.status(200).send({});
+        console.log('Entrou');
+        return res.status(200).send(``);
     }
     next();
 }
@@ -29,9 +33,11 @@ app.use((req, res, next) => {
 )
 
 app.use('/login', cors(), rotaLogin);
-app.use('/pets', cors(),  rotaPets);
+app.use('/pets', cors(), rotaPets);
+app.use('/banner', cors(), rotaBanner);
 app.use('/pet', cors(), auth, rotaPet);
 app.use('/update', cors(), rotaUpdate);
+app.use('/forgot', cors(), rotaForgot);
 app.use('/auth', cors(), auth);
 
 app.use((req, res, next) => {

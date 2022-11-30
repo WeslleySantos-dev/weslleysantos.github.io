@@ -51,12 +51,7 @@ export function Slider() {
                     <a href="/Adoption"> Adotar este Pet</a>
                 </div>
             </div>
-
-
-
-
-        </div>
-
-    )
+</div>
+)
 }
 

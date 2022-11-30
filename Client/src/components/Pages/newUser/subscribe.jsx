@@ -1,25 +1,33 @@
 import './subscribe.css'
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../Contexts/auth';
-import API from '../../API/API.JSX';
-import { IMaskInput } from "react-imask";
-import InputMask from 'react-input-mask';
 
 
 
 export default function Home() {
-    const { authenticated, sub } = useContext(AuthContext);
-
-
-
+    const { authenticated, sub, login } = useContext(AuthContext);
     const [values, setValues] = useState();
+
     const handleChangeValues = async (value) => {
         setValues((prevalue) => ({
-            // ...prevalue,
+            ...prevalue,
             [value.target.name]: value.target.value,
         }));
         console.log(values);
+        if (value.target.name == "Nome") { document.getElementById('inputNome').innerText = '' }
+        if (value.target.name == "Sobrenome") { document.getElementById('inputSobrenome').innerText = `` }
+        if (value.target.name == "Email") { document.getElementById('inputEmail').innerText = `` }
+        if (value.target.name == "Fone") { document.getElementById('inputFone').innerText = `` }
+        if (value.target.name == "Login") { document.getElementById('inputLogin').innerText = `` }
+        if (value.target.name == "password") { document.getElementById('inputPassword').innerText = `` }
 
+        if (value.target.name == "cpfcnpj") {
+            if (!isNaN(value.target.value)) {
+                document.getElementById('inputcpfcnpj').innerText = ``
+            } else {
+                document.getElementById('inputcpfcnpj').innerText = `Digite apenas números`
+            }
+        }
     };
 
 
@@ -29,44 +37,107 @@ export default function Home() {
             ...prevalue,
             [value.target.name]: value.target.value,
         }));
-        var Type = document.getElementById('tpPessoa').value
+        var Type = value.target.value
         if (Type) {
+            console.log(values.cpfcnpj);
+            if (Type == 'Jur') {
+                var CPF = document.getElementById("_CPF");
+                CPF.style.display = 'none';
 
-            if (Type == 'Juri') {
-                console.log('Juri');
-                document.getElementById('cpfcnpj').innerHTML = ('as');
-                document.getElementById('cpfcnpj').innerHTML = (`<label htmlFor="Nome">CNPJ:</label>
-                                                            <input
-                                                                type="text"
-                                                                name="cpfcnpj"
-                                                                id="cpfcnpj"
-                                                                placeholder='XX. XXX. XXX/0001-XX'
-                                                                onChange={handleChangeValues} />`);
+                var CNPJ = document.getElementById("_CNPJ");
+                CNPJ.style.display = 'contents';
             } else if (Type == 'Fis') {
-                console.log('fis');
-                document.getElementById('cpfcnpj').innerHTML = ('as');
-                document.getElementById('cpfcnpj').innerHTML = (`<label htmlFor="Nome">CPF:</label>
-                                                                <input
-                                                                    type="text"
-                                                                    name="cpfcnpj"
-                                                                    id="cpfcnpjinput"
-                                                                    placeholder='XXX.XXX.XXX-XX'/>`)
-                document.getElementById('cpfcnpjinput').addEventListener("onChange", handleChangeValues, true)
-            } else { document.getElementById('cpfcnpj').innerHTML = ('Nada'); }
+                var CNPJ = document.getElementById("_CNPJ");
+                CNPJ.style.display = 'none';
+
+                var CPF = document.getElementById("_CPF");
+                CPF.style.display = 'contents';
+            }
+        } else if (!Type) {
+            var CNPJ = document.getElementById("_CNPJ");
+            var cnpjInput = document.getElementById("CNPJ");
+            CNPJ.style.display = 'none';
+            cnpjInput.value = ''
+
+            var CPF = document.getElementById("_CPF");
+            var cpfInput = document.getElementById("CPF");
+            CPF.style.display = 'none';
+            cpfInput.value = ''
+
+            var Pessoa = values
+            Pessoa.cpfcnpj = ''
+
+
+
         }
     }
+    const validate = () => {
+
+        var nome = document.querySelector('#Nome').value;
+        var sobrenome = document.querySelector('#Sobrenome').value;
+        var email = document.querySelector('#Email').value;
+        var fone = document.querySelector('#Fone').value;
+        var pessoa = document.querySelector('#tpPessoa').value;
+        var cpf = document.querySelector('#CPF').value;
+        var cnpj = document.querySelector('#CNPJ').value;
+        var login = document.querySelector('#Login').value;
+        var senha = document.querySelector('#password').value;
+        var valid = 0
+
+
+        if (!nome) { document.getElementById('inputNome').innerText = `*Campo obrigatorio`; valid++ }
+        if (!sobrenome) { document.getElementById('inputSobrenome').innerText = `*Campo obrigatorio`; valid++ }
+        if (!email) { document.getElementById('inputEmail').innerText = `*Campo obrigatorio`; valid++ }
+        if (fone) {
+            if (fone.length != 15) {
+                document.getElementById('inputFone').innerText = `*Prencha ex: (99) 99999-9999`; valid++
+            }
+        }
+        if (!fone) { document.getElementById('inputFone').innerText = `*Campo obrigatorio`; valid++ }
+        if (!pessoa) {
+            document.getElementById('inputPessoa').innerText = `*'Preencher com 'Fis' ou 'Jur'`; valid++
+        } else {
+            if (pessoa == 'Fis') {
+                if (cpf) {
+                    if (cpf.length !== 11) { document.getElementById('inputcpfcnpj').innerText = `*Digite apenas numeros`; valid++ }
+                    if (isNaN(cpf)) { document.getElementById('inputcpfcnpj').innerText = `*Digite apenas numeros`; valid++; console.log('acertou') };
+                    console.log(!isNaN(cpf));
+                }
+            } else if (pessoa == 'Jur') {
+                if (cnpj) {
+                    if (cnpj.length != 18) { document.getElementById('inputcpfcnpj').innerText = `*CNPJ  ex:XXXXXXXX0001XX`; valid++ }
+                } else { document.getElementById('inputcpfcnpj').innerText = `*CNPJ  ex:XXXXXXXX0001XX`; valid++ }
+            } else { console.log('Favor preencher apenas com Fis ou Jur');; valid++ }
+        }
+        if (!login) { document.getElementById('inputLogin').innerText = `*Campo obrigatorio`; valid++ }
+        if (senha) { if (senha.length <= 8) { document.getElementById('inputPassword').innerText = `*Senha inferior de 8 caracteres `; valid++ } }
+        if (!senha) {
+            document.getElementById('inputPassword').innerText = `*Campo obrigatorio`; valid++
+        }
+        if (valid == 0) {
+            return true
+        } else {
+            console.log(valid);
+            return false
+        }
+
+    }
     const handleClickButton = () => {
-        sub(
-            values.Nome,
-            values.Sobrenome,
-            values.Email,
-            values.Usuario,
-            values.Login,
-            values.PassUser,
-            values.Fone,
-            values.Pessoa,
-            values.CpfCnpj
-        );
+        var valids = validate();
+        console.log(valids);
+        console.log(values);
+        if (valids) {
+            sub(
+                values.Nome,
+                values.Sobrenome,
+                values.Email,
+                values.Login,
+                values.password,
+                values.Fone,
+                values.tpPessoa,
+                values.cpfcnpj
+            );
+        }
 
     };
 
@@ -76,10 +147,12 @@ export default function Home() {
         <div className='sub-banner'>
 
             <div className='sub-card'>
-                <h2>Login</h2>
-
+                <h2>Cadastro</h2>
+                <p id='mensagem'></p>
                 <form method='post'>
+                    <p id='inputNome'></p>
                     <div className='sub'>
+                        <br />
                         <label htmlFor="Nome">Nome:</label>
                         <input
                             type="text"
@@ -88,7 +161,7 @@ export default function Home() {
                             placeholder='Nome'
                             onChange={handleChangeValues} />
                     </div>
-
+                    <p id='inputSobrenome'></p>
                     <div className='sub'>
                         <label htmlFor="Sobrenome">Sobrenome:</label>
                         <input
@@ -98,6 +171,7 @@ export default function Home() {
                             placeholder='Sobrenome'
                             onChange={handleChangeValues} />
                     </div>
+                    <p id='inputEmail'></p>
                     <div className='sub'>
                         <label htmlFor="Email">Email:</label>
                         <input
@@ -107,35 +181,54 @@ export default function Home() {
                             placeholder='Email'
                             onChange={handleChangeValues} />
                     </div>
-
+                    <p id='inputFone'></p>
                     <div className='sub'>
-                        <label htmlFor="tel">Fone:</label>
+                        <label htmlFor="Fone">Fone:</label>
                         <input
                             type='text'
-                            name="tel"
-                            id="tel"
+                            name="Fone"
+                            id="Fone"
                             placeholder='(00) 00000-0000'
                             onChange={handleChangeValues} />
                     </div>
-
+                    <p id='inputPessoa'></p>
                     <div className='sub'>
-                        <label htmlFor="Pessoa">Pessoa: </label>
-                        <input type='text' name="Pessoa" id="tpPessoa" list="Pessoa" onChange={handleChangePerson} />
+                        <label htmlFor="tpPessoa">Pessoa: </label>
+                        <input type='text' name="tpPessoa" id="tpPessoa" onChange={handleChangePerson} onClick={handleChangePerson} list="Pessoa" />
                         <datalist id="Pessoa" onChange={handleChangePerson}>
                             <option value="Fis" className='1'>Pessoa Fisica</option>
-                            <option value="Juri">Pessoa Juridica ex: ONGs, instituições,empresas... </option>
-                            
+                            <option value="Jur">Pessoa Juridica ex: ONGs, instituições,empresas... </option>
+
                         </datalist>
                     </div>
+                    <p id='inputcpfcnpj'></p>
+                    <div className='sub' id='cpfcnpj' >
+                        <div style={{ display: 'none' }} id='_CPF' className='sub'>
+                            <label htmlFor="CPF">CPF:</label>
+                            <input
+                                type='text'
+                                name="cpfcnpj"
+                                id="CPF"
+                                onChange={handleChangeValues}
+                                placeholder='XXXXXXXXXXX'
+                            />
+                        </div>
+                        <div style={{ display: 'none' }} id='_CNPJ' className='sub'>
+                            <label htmlFor="CNPJ">CNPJ:</label>
+                            <input
+                                type="text"
+                                name="cpfcnpj"
+                                id="CNPJ"
+                                onChange={handleChangeValues}
+                                placeholder='XXXXXXXXXXXXXX'
+                            />
+                        </div>
 
-                    <div className='sub' id='cpfcnpj'>
 
                     </div>
-
-
-
+                    <p id='inputLogin'></p>
                     <div className='sub'>
-                        <label htmlFor="Nome">Login:</label>
+                        <label htmlFor="Login">Login:</label>
                         <input
                             type="text"
                             name="Login"
@@ -144,7 +237,7 @@ export default function Home() {
                             onChange={handleChangeValues} />
                     </div>
 
-
+                    <p id='inputPassword'></p>
                     <div className='sub'>
                         <label htmlFor="password">Senha:</label>
                         <input

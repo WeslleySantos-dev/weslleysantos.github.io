@@ -12,7 +12,6 @@
 
 }
 
-
 .sub-banner {
     height: calc(100% - 8.05rem);
     background-image: url('../../../assets/Imagens/banner_login.jpg');
@@ -58,8 +57,8 @@
     overflow: hidden;
 }
 
-.CPF{
-    -webkit-nbsp-mode:normal;
+.CPF {
+    -webkit-nbsp-mode: normal;
     margin: 0;
 }
 
@@ -68,4 +67,46 @@
     display: flex;
     width: 100%;
     justify-content: flex-end;
+}
+
+#petphoto {
+    margin-top: 4%;
+    width: 92%;
+    height: 40%;
+}
+
+#Sexo {
+    text-transform: uppercase;
+}
+
+#Porte {
+    text-transform: uppercase;
+}
+
+#UF {
+    text-transform: uppercase;
+}
+
+#Cidade {
+    text-transform: uppercase;
+}
+
+
+#Descricao {
+    outline-style: 0.3rem solid;
+    outline-color: rgba(0, 0, 255, 0);
+    border: 0;
+    margin-top: 0%;
+    height: 7rem;
+
+    width: 70%;
+    color: white;
+
+
+    background-color: rgb(173, 125, 84)
+}
+
+
+#Desc {
+    align-items: flex-start;
 }

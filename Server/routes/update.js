@@ -5,12 +5,12 @@ const response = require('../app');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
+var query =''
 
 
 //ATUALIZA CONTA DE USUARIO
-router.patch('/:parameters/:id', (req, res, next) => {
-    const { parametro } = req.body
-    const id = req.params.id
+router.patch('/:parameters', (req, res, next) => {
+    const { parametro, id } = req.body
     const tpquery = req.params.parameters
     switch (tpquery) {
         case "nome":
@@ -58,7 +58,7 @@ router.patch('/:parameters/:id', (req, res, next) => {
                             conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                             if (error) { return res.status(500).send({ error: error }) }
                             res.status(201).send({
-                                messagem: 'Atualizado ' + tpquery + ' com Sucesso!',
+                                mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
                                 resultado
                             })
                         }
@@ -79,7 +79,7 @@ router.patch('/:parameters/:id', (req, res, next) => {
                             conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                             if (error) { return res.status(500).send({ error: error }) }
                             res.status(201).send({
-                                messagem: 'Atualizado ' + tpquery + ' com Sucesso!',
+                                mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
                                 resultado
                             })
                         }
@@ -100,20 +100,19 @@ router.patch('/:parameters/:id', (req, res, next) => {
                             conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                             if (error) { return res.status(500).send({ error: error }) }
                             res.status(201).send({
-                                messagem: 'Atualizado ' + tpquery + ' com Sucesso!',
+                                mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
                                 resultado
                             })
                         })
                     }
                 })
             } else if (tpquery == "password") {
+                console.log(Password, id);
                 conn.query(query, [Password, id], (error, resultado, field) => {
                     conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                     if (error) { return res.status(500).send({ error: error }) }
                     res.status(201).send({
-                        messagem: 'Atualizado ' + tpquery + ' com Sucesso!',
-                        resultado, Password
-
+                        mensagem: 'Senha atualizada com sucesso!',
                     })
                 })
             } else {
@@ -121,7 +120,7 @@ router.patch('/:parameters/:id', (req, res, next) => {
                     conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                     if (error) { return res.status(500).send({ error: error }) }
                     res.status(201).send({
-                        messagem: 'Atualizado ' + tpquery + ' com Sucesso!',
+                        mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
                         resultado
                     })
                 })
@@ -133,47 +132,58 @@ router.patch('/:parameters/:id', (req, res, next) => {
 
 //Novo Usuario
 router.post('/newuser', (req, res, next) => {
+
     mysql.getConnection(async (error, conn) => {
-        const { Nome, Sobrenome, Email, Fone, Usuario, Login, PassUser, Pessoa, CpfCnpj } = req.body
+        if (error) { return res.status(500).send({ error: error }) }
+        var { Nome, Sobrenome, Email, Fone, Login, PassUser, Pessoa, CpfCnpj } = req.body
         const salt = await bcrypt.genSalt(saltRounds)
         const password = await bcrypt.hash(PassUser, salt)
+        console.log(Nome, Sobrenome, Email, Fone, Login, PassUser, Pessoa, CpfCnpj);
+        if (CpfCnpj == '') {
+            CpfCnpj = null
+        }
+        console.log(CpfCnpj);
 
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query('Select id from users where  login =?;', [Login], (error, resultado, fields) => {
-            if (resultado == !"") {
-                conn.release();
-                return res.status(404).send({
-                    mensagem: "Este login já está sendo utilizado por outro usuario",
-                })
+
+
+        conn.query('Select id from users where  email =?;', [Email], (error, resultado, fields) => {
+            console.log(Email);
+            console.log(resultado);
+            console.log(!!(resultado === ""));
+
+            if (resultado != "") {
+                return res.status(201).send({ mensagem: "Este Email já está sendo utilizado por outro usuario" })
             } else {
-                conn.query('Select id from users where  email =?;', [Email], (error, resultado, fields) => {
+                conn.query('Select id from users where  Fone =?;', [Fone], (error, resultado, fields) => {
                     if (resultado != "") {
                         conn.release();
-                        return res.status(404).send({
-                            mensagem: "Este Email já está sendo utilizado por outro usuario"
-                        })
+                        return res.status(201).send({ mensagem: "Este fone já está sendo utilizado por outro usuario" })
                     } else {
-                        conn.query('Select id from users where  Fone =?;', [Fone], (error, resultado, fields) => {
+                        conn.query('Select id from users where  cpfcnpj =?;', [CpfCnpj], (error, resultado, fields) => {
                             if (resultado != "") {
                                 conn.release();
-                                return res.status(404).send({
-                                    mensagem: "Este fone já está sendo utilizado por outro usuario"
-                                })
-                            } else if (password != "") {
-                                conn.query(
-                                    'INSERT INTO users (Nome, Sobrenome, Email, Fone, Usuario,  Pessoa, CpfCnpj, Login, PassUser) values (?,?, ?, ?, ?, ?, ?, ?, ?);',
-                                    [Nome, Sobrenome, Email, Fone, Usuario, Pessoa, CpfCnpj, Login, PassUser,],
-                                    (error, resultado, field) => {
-                                        conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
-                                        if (error) { return res.status(500).send({ error: error }) }
-                                        res.status(201).send({
-                                            messagem: 'Inserido usuario com Sucesso!',
-                                            Id_Usuario: resultado.insertId.id,
-                                            password
-
-                                        })
+                                return res.status(201).send({ mensagem: "O Cpf/Cnpj deve ser unico" })
+                            } else {
+                                conn.query('Select id from users where  login =?;', [Login], (error, resultado, fields) => {
+                                    if (resultado != "") {
+                                        conn.release();
+                                        return res.status(201).send({ mensagem: "Este login já está sendo utilizado por outro usuario" })
+                                    } else if (password != "") {
+                                        conn.query(
+                                            'INSERT INTO users (Nome, Sobrenome, Email, Usuario, Login, PassUser, Fone, Pessoa, CpfCnpj) values (?, ?, ?, ?, ?, ?, ?, ?, ?);',
+                                            [Nome, Sobrenome, Email, 'a', Login, password, Fone, Pessoa, CpfCnpj],
+                                            (error, resultado, field) => {
+                                                conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
+                                                if (error) { return res.status(500).send({ error: error }) }
+                                                res.status(201).send({
+                                                    mensagem: 'Inserido usuario com Sucesso!',
+                                                    User: Login,
+                                                    password: PassUser
+                                                })
+                                            }
+                                        )
                                     }
-                                )
+                                })
                             }
                         })
                     }
@@ -200,7 +210,7 @@ router.delete('/', (req, res, next) => {
 
                             }
                             res.status(201).send({
-                                messagem: 'Pet Deletado com Sucesso!',
+                                mensagem: 'Pet Deletado com Sucesso!',
                                 usuario: user
                             })
                         }
@@ -212,17 +222,17 @@ router.delete('/', (req, res, next) => {
     )
 });
 
-router.post('/users', (req, res, next) => {
-    mysql.getConnection((error, conn) => {
-        if (error) { return res.status(500).send({ error: error }) }
-        conn.query('select * from users', (error, resultado, field) => {
-            res.status(201).send({
-                response: resultado
-            })
-        })
+// router.post('/users', (req, res, next) => {
+//     mysql.getConnection((error, conn) => {
+//         if (error) { return res.status(500).send({ error: error }) }
+//         conn.query('select * from users', (error, resultado, field) => {
+//             res.status(201).send({
+//                 response: resultado
+//             })
+//         })
 
-    })
-});
+//     })
+// });
 
 
 module.exports = router;

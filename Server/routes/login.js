@@ -9,14 +9,14 @@ const saltRounds = 10;
 
 //Login--------------------------------------------------------------
 router.post('/', (req, res, next) => {
-    mysql.getConnection(async (error, conn) => {
+    mysql.getConnection(async (error, Conn) => {
         const { Login, password } = req.body;
         const salt = await bcrypt.genSalt(saltRounds)
         verify = Boolean
-        conn.query(
+        Conn.query(
             'Select id, Nome, Usuario,PassUser,email from users where login = ? or email =?;', [Login, Login], async (error, resultado, fields) => {
-                conn.release();
-                if (resultado) {
+                Conn.release();
+                if (resultado != "") {
                     user = resultado[0];
                     hash = [user.PassUser].toString();
                 }
@@ -24,12 +24,11 @@ router.post('/', (req, res, next) => {
                     return res.status(500).send({ error: error })
                 } else {
                     if (resultado == "") {
-                        res.status(404).send({
-                            messagem: 'Acesso não autorizado!'
+                        res.status(200).send({
+                            messagem: 'Usuário ou senha inválidos'
                         })
                     } else {
                         bcrypt.compare(password, hash, function (err, result) {
-                            console.log(result);
                             verify = result
                             if (err) { return res.status(401).send({ Mensagem: 'Falha na Autenticação' }) }
                             if (!verify) { return res.status(401).send({ Mensagem: 'Falha na Autenticação' }) }

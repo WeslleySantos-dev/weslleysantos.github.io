@@ -25,6 +25,7 @@ function nextbanner() {
         } else if (document.getElementById("radio4").checked) {
             console.log("4");
             console.log({ count });
+            
             count = 1;
         }
 

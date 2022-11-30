@@ -1,7 +1,7 @@
 import './home.css';
 
 
-import { Slider } from '../../Slider/Slider';
+import Slider from '../../Slider/Slider copy';
 import Pets from '../../CardAnimal/CardAnimal';
 import { Products } from '../../Products/Products';
 
@@ -13,7 +13,7 @@ const Home = () => {
             <Slider></Slider>
             <span className='Welcome'>
                 <h1>
-                    SEJA MUITO BEM-VINDO(a) AO CANTINHOPETSTOP
+                    SEJA MUITO BEM-VINDO(a) AO CANTINHO PET STOP
                 </h1>
                 <p >
                     No cantinhopetstop utilizamos uma abordagem nova. Venha conhecer os Pets mais adoraveis para você levar para o seu lar

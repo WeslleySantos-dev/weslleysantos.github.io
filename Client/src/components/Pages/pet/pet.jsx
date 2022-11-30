@@ -2,11 +2,6 @@ import react, { Component } from 'react'
 import API from '../../API/API.JSX';
 import "./pet.css"
 
-function selectpet(petid) {
-    var hreflink = '/Pet' + petid
-    console.log(hreflink);
-}
-
 var pet = {}
 var link = document.location.href
 link = link.split('/')
@@ -20,11 +15,9 @@ export default class Pet extends Component {
     }
 
     async componentDidMount() {
-
-
-
         let token = localStorage.getItem('token');
         var Usuario = JSON.parse(token);
+        console.log(Usuario)
         const response = await API.post('/pets/' + idPet, {
             token: Usuario.token
         });
@@ -34,13 +27,15 @@ export default class Pet extends Component {
     render() {
         pet = this.state.infopet;
         let prefix = ''
+        console.log(pet.Sexo);
         if (pet.Sexo == 'M') {
             pet.Sexo = 'Macho'
-            prefix = o
-        } else {
+            prefix = 'o'
+        } else if (pet.Sexo == 'F') {
             pet.Sexo = 'Fêmea'
             prefix = 'a'
         }
+        console.log(pet.Sexo);
 
 
         return (

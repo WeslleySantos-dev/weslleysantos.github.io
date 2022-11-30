@@ -20,12 +20,12 @@ export function Topbar() {
                     </li>
                     <li className='btnTopBar'>
                         <a href="">Sobre</a>
-                        <ul>
+                        {/* <ul>
                             <li className='submenu'><a href="">Objetivo</a></li>
                             <li className='submenu'><a href="">Storytelling</a></li>
                             <li className='submenu'><a href="">Equipe</a></li>
 
-                        </ul>
+                        </ul> */}
                     </li>
 
                     <li className='btnTopBar'>

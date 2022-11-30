@@ -5,6 +5,7 @@ import gatinho from '../../assets/imagens/cat.jpg';
 import API from '../API/API.JSX';
 
 
+
 function selectpet(petid) {
     var hreflink = '/adoption' + petid
     console.log(hreflink);
@@ -25,16 +26,20 @@ class Pets extends Component {
     render() {
         var pets = this.state.petsinfo;
         console.log(this.state.petsinfo[0]);
-        console.log(pets);
+        console.log(pets.petsinfo);
 
         pets.forEach(animal => {
+            animal.Sexo = animal.Sexo.toUpperCase();
             if (animal.Sexo == 'M') {
+                console.log('m');
                 animal.Sexo = 'Macho'
-            } else {
+            } else if (animal.Sexo == 'F') {
+                console.log('f');
                 animal.Sexo = 'Fêmea'
             }
 
         });
+        console.log(pets);
         return (
             <div>
                 {pets.map(pet =>
