@@ -28,6 +28,33 @@ export default function Home() {
                 document.getElementById('inputcpfcnpj').innerText = `Digite apenas números`
             }
         }
+
+
+        if (value.target.name == "Fone") {
+            let number = document.querySelector('#Fone').value
+            let isnanteste = number.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
+            if (isNaN(isnanteste)) {
+                console.log(isnanteste)
+                document.querySelector('#Fone').value = document.querySelector('#Fone').value.slice(0, -1)
+            } else {
+                console.log(isnanteste)
+                document.getElementsByClassName("inputFone").innerText = ''
+            }
+            document.body.addEventListener('keypress', function (event) {
+                const key = event.key;
+
+                if (!isNaN(key)) {
+                    var formatPhone = ''
+                    let phone = document.querySelector('#Fone').value
+                    formatPhone = phone.replace(/(\d{2})(\d{5})(\d{3})/,
+                        function (regex, arg0, arg1, arg2) {
+                            return '(' + arg0 + ') ' + arg1 + '-' + arg2;
+                        });
+                    document.querySelector('#Fone').value = formatPhone
+                }
+            });
+
+        }
     };
 
 
@@ -99,8 +126,8 @@ export default function Home() {
         } else {
             if (pessoa == 'Fis') {
                 if (cpf) {
-                    if (cpf.length !== 11) { document.getElementById('inputcpfcnpj').innerText = `*Digite apenas numeros`; valid++ }
-                    if (isNaN(cpf)) { document.getElementById('inputcpfcnpj').innerText = `*Digite apenas numeros`; valid++; console.log('acertou') };
+                    if (cpf.length !== 11) { document.getElementById('inputcpfcnpj').innerText = `Digite apenas numeros`; valid++ }
+                    if (isNaN(cpf)) { document.getElementById('inputcpfcnpj').innerText = `*Digite apenas numeros`; valid++};
                     console.log(!isNaN(cpf));
                 }
             } else if (pessoa == 'Jur') {
@@ -185,9 +212,10 @@ export default function Home() {
                     <div className='sub'>
                         <label htmlFor="Fone">Fone:</label>
                         <input
-                            type='text'
+                            type='tel'
                             name="Fone"
                             id="Fone"
+                            maxLength="15"
                             placeholder='(00) 00000-0000'
                             onChange={handleChangeValues} />
                     </div>
@@ -209,6 +237,7 @@ export default function Home() {
                                 type='text'
                                 name="cpfcnpj"
                                 id="CPF"
+                                maxLength={11}
                                 onChange={handleChangeValues}
                                 placeholder='XXXXXXXXXXX'
                             />
@@ -219,6 +248,7 @@ export default function Home() {
                                 type="text"
                                 name="cpfcnpj"
                                 id="CNPJ"
+                                maxLength={15}
                                 onChange={handleChangeValues}
                                 placeholder='XXXXXXXXXXXXXX'
                             />
@@ -249,7 +279,7 @@ export default function Home() {
                     </div>
                 </form>
 
-                <div className='sub submit_sub'>
+                <div className='submit'>
                     <button onClick={() => handleClickButton()}>Cadastrar</button>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 .login-card {
-    background-color: rgb(160, 108, 63);
+    background-color: rgba(187, 117, 82, 0.863);
     /* superior | direita | inferior | esquerda */
     padding: 0rem 1rem 2rem 1rem;
     width: 15rem;
@@ -9,7 +9,7 @@
 }
 
 .login-banner {
-    height: calc(100% - 8.05rem);
+    height: 100%;
     background-image: url('../../../assets/Imagens/banner_login.jpg');
     background-size: 100% 100%;
 }
@@ -45,23 +45,27 @@
 
 
 .submit button {
-    background-color: rgb(115, 64, 21);
-        border-radius: 2rem;
+    background-color: rgb(141, 85, 57) !important;
+    border-radius: 1rem;
     border-style: solid;
     padding-inline: 8%;
-    border-width: 0rem;
-    justify-content: space-between;
+    border-width: 0.1em !important;
+    border-color:  rgb(141, 85, 57) ;
+    justify-content: space-evenly;
     color: white;
 }
 
-.submit button:hover{
-    background-color: rgb(136, 83, 39);
+.submit button:hover {
+    background-color: rgba(187, 117, 82, 0.8) !important;
+    border-width: 0.1em;
+    border-color:  rgb(141, 85, 57) ;
 }
 
 .login input {
     display: block;
     width: 70rem;
-    border-radius: 1rem;
+    border-radius: 0.4rem;
+    padding-left: 0.4em;
     border-style: solid;
     border-width: 0.08rem;
     border-color: rgb(136, 83, 39);
@@ -69,7 +73,7 @@
     outline-offset: none;
     outline-style: solid;
     outline-width: 0;
- 
+
 }
 
 

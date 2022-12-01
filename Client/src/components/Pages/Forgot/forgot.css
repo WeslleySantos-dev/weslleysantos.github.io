@@ -1,5 +1,5 @@
 .forgot-card {
-    background-color: rgb(160, 108, 63);
+    background-color: rgba(187, 117, 82, 0.863);
     /* superior | direita | inferior | esquerda */
     padding: 0rem 1rem 2rem 1rem;
     width: 15rem;
@@ -102,8 +102,7 @@
     text-align: end;
 }
 
-#mensagem{
+#mensagem {
     margin-top: 0%;
     color: white;
-    text-shadow: rgb(255, 0, 0) 0.1em 0.1em 0.4em;
 }

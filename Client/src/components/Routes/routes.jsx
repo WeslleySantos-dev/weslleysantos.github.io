@@ -36,7 +36,7 @@ export default function AppRoutes() {
                 <Routes>
                     <Route exact path="/" element={<HomePage />} />
                     <Route exact path="/pet/:idPet" element={<Pet />} />
-                    <Route exact path="/pet" element={<Private><Pet /></Private>} />
+                    <Route exact path="/pet" element={<Pet />} />
                     <Route exact path="/newpet" element={<Private><NewPet /></Private>} />
                     <Route exact path="/login" element={<Login />} />
                     <Route exact path="/logout" element={<Logout />} />

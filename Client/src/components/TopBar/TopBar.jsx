@@ -3,18 +3,35 @@ import './TopBar.css'
 import img_insta from './assets/instagram.svg'
 import img_fb from './assets/facebook.svg'
 import img_Twitter from './assets/twitter.svg'
-
+import './responsive'
 import React from 'react';
 
-export function Topbar() {
+function menushow() {
+    console.log('!');
+    let menuMobile = document.getElementsByClassName('menumob');
+    console.log(menuMobile[0],menuMobile[1]);
 
+    menuMobile[0].classList.toggle('active')
+    menuMobile[1].classList.toggle('active')
+    // if (menuMobile.classList.contains('active')) {
+    //     menuMobile.classList.remove('active');
+    // } else {
+    //     menuMobile.classList.add('active');
+    // }
+}
+
+
+export function Topbar() {
     return (
         <div className='Topbar'>
-            <nav className='nullspace'>
-
-            </nav>
             <nav className='buttonstop'>
-                <ul>
+                <div className='mobile-menu' onClick={menushow}>
+                    <div className='line'></div>
+                    <div className='line2'></div>
+                    <div className='line3'></div>
+                </div>
+                <div className=''></div>
+                <ul className='menumob'>
                     <li className='btnTopBar'>
                         <a href="/">Pagina Inicial</a>
                     </li>
@@ -41,30 +58,30 @@ export function Topbar() {
                         <a href="">Blog</a>
                     </li>
                     <li className='btnTopBar' id='btnlogin'>
-                        <a href="">Login</a>
+                        <a href="/login">Login</a>
                     </li>
                 </ul>
+                <div className='SocialMidias menumob'>
+                    <button className='ButtonsMidias'>
+                        <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
+                            <img src={img_insta} alt="Logo do Instagram" className='midiaslogo' />
+                        </a>
+                    </button>
+
+                    <button className='ButtonsMidias'>
+                        <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
+                            <img src={img_fb} alt="Logo do Facebook" className='midiaslogo' />
+                        </a>
+                    </button>
+
+                    <button className='ButtonsMidias'>
+                        <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
+                            <img src={img_Twitter} alt="Logo do Twitter" className='midiaslogo' />
+                        </a>
+                    </button>
+                </div>
             </nav>
 
-            <nav className='SocialMidias'>
-                <button className='ButtonsMidias'>
-                    <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
-                        <img src={img_insta} alt="Logo do Instagram" className='midiaslogo' />
-                    </a>
-                </button>
-
-                <button className='ButtonsMidias'>
-                    <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
-                        <img src={img_fb} alt="Logo do Facebook" className='midiaslogo' />
-                    </a>
-                </button>
-
-                <button className='ButtonsMidias'>
-                    <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
-                        <img src={img_Twitter} alt="Logo do Twitter" className='midiaslogo' />
-                    </a>
-                </button>
-            </nav>
 
         </div>
     )

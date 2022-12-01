@@ -1,7 +1,7 @@
 import React from 'react'
 import './TopPage.css'
 
-import Logo from './assets/logo.png'
+import Logo from '../../assets/logopage.png'
 
 
 export function TopPage() {

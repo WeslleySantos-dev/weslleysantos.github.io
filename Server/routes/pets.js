@@ -21,19 +21,20 @@ router.get('/', (req, res, next) => {
 //INSERE DADOS DE UM PRODUTO
 router.post('/newpet', async (req, res) => {
 
-    const { Nome,Idade,Sexo,Peso,Porte,Raca,Desc,Date,Fone,Imagem,Uf,Cidade,Usuario } = req.body
+    const { Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, Usuario } = req.body
     await mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'INSERT INTO pets (NomePet, Idadepet, Sexo, Peso, Porte, Raca, Descricao, Data, Contato, Imagem, UF, Cidade, Status, IDUsuario) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
-            [Nome , Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, '1', Usuario],
+            [Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, '1', Usuario],
             (error, resultado, field) => {
                 conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                 if (error) {
-                    console;console.log(error.sqlMessage);
-                     return res.status(500).send({ error: error }) }
-                res.status(201).send({
-                    messagem: 'Pet cadastrado com sucesso!'+ '\n' +'Por politicas de segurança será verificado e inserido no cadastro de Pets para adoção',
+                    console; console.log(error.sqlMessage);
+                    return res.status(500).send({ error: error })
+                }
+                return res.status(201).send({
+                    mensagem: 'Pet cadastrado com sucesso!' + '\n' + 'Por politicas de segurança será verificado e inserido no cadastro de Pets para adoção',
                     IdPet: resultado.insertId
                 })
             }

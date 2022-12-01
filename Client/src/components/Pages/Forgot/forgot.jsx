@@ -5,7 +5,20 @@ import { AuthContext } from '../../Contexts/auth';
 
 
 export default function Home() {
-    const { authenticated, forgot,forgotupdate } = useContext(AuthContext);
+    document.body.addEventListener('keydown', function (event) {
+        const key = event.key;
+        console.log(key)
+        if (key == 'Enter') {
+            let login = document.querySelector('#login').value;
+            let fone = document.querySelector('#fone').value;
+            console.log(login, fone)
+
+            if (login) {
+                handleClickButton();
+            }
+        }
+    });
+    const { authenticated, forgot, forgotupdate } = useContext(AuthContext);
     var first = 0
     const [values, setValues] = useState();
     const handleChangeValues = async (value) => {
@@ -42,6 +55,8 @@ export default function Home() {
     };
 
 
+
+
     const handleClickButton = () => {
         var login = document.querySelector('#login').value;
         var fone = document.querySelector('#fone').value;
@@ -54,23 +69,10 @@ export default function Home() {
                 document.getElementById('inputemail').innerText = 'Digite um email válido';
             } else {
                 forgot(values);
-                document.getElementById('inputemail').innerText = '';
-                first++
-                if (first === 1) {
-                    if (fone === '') {
-                        var INPUTfone = document.getElementById("_fone");
-                        INPUTfone.style.display = 'flex';
-                    }
-                } else {
-                    if (login) {
-                        if (fone) {
-                            forgot(values);
-                        } else {
-                            document.getElementById('mensagem').innerText = 'Preencha os campos corretamente'
-                            document.getElementById('inputfone').innerText = 'Ex: (00) 00000-0000'
-                        }
-                    }
+                if (fone) {
+                    forgot(values);
                 }
+
             }
         } else if (password == confirm) {
             console.log('Acertou');

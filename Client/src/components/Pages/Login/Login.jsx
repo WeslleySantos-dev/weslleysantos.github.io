@@ -1,7 +1,8 @@
 import './Login.css'
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../../Contexts/auth';
-import './login2'
+import { Await } from 'react-router-dom';
+// import './login2'
 
 
 
@@ -10,14 +11,14 @@ export default function Home() {
 
     const { authenticated, login, signup } = useContext(AuthContext);
 
-    document.body.addEventListener('keydown', function (event) {
+    document.body.addEventListener('keydown', async function (event) {
         const key = event.key;
-        let v1 = document.querySelector('#login').value;
-        let v2 = document.querySelector('#password').value;
         if (key == 'Enter') {
+            let v1 = document.querySelector('#login').value;
+            let v2 = document.querySelector('#password').value;
             if (v1) {
                 if (v2) {
-                    handleClickButton();
+                   handleClickButton();
                 }
             }
         }
@@ -30,9 +31,8 @@ export default function Home() {
             [value.target.name]: value.target.value,
         }));
     };
-    const handleClickButton = () => {
-        console.log(values.login);
-        login(
+    const handleClickButton = async () => {
+        await login(
             values.login,
             values.password
         );
@@ -51,6 +51,7 @@ export default function Home() {
                             type="text"
                             name="login"
                             id="login"
+                            maxLength={40}
                             placeholder='email ou usuario'
                             onChange={handleChangeValues} />
                     </div>
@@ -60,6 +61,7 @@ export default function Home() {
                             type="password"
                             name="password"
                             id="password"
+                            maxLength={20}
                             placeholder='password'
                             onChange={handleChangeValues} />
                     </div>

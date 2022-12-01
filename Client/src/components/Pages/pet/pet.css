@@ -1,8 +1,13 @@
 #img {
-    margin-top: 0;
+
+    margin: 0 auto;
     margin-bottom: 2.4rem;
-    width: 66rem;
+    width: 66%;
     height: 27rem;
+}
+
+.imgpet {
+    width: 100%;
 }
 
 .Myhistory {
@@ -12,17 +17,30 @@
 
 }
 
-.Myhistory h3 {
+.Myhistory h2 {
     font-weight: 600;
-    font-size: 18PX;
     color: rgba(55, 33, 18, 0.753);
 
 }
 
+.Myhistory h3 {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: rgba(55, 33, 18, 0.753);
+
+}
+
+.Myhistory h4 {
+    font-weight: 600;
+
+    color: rgba(55, 33, 18, 0.753);
+
+}
+
+
 .adoption {
     display: flex;
-    padding-inline: 6rem;
-    width: 57rem;
+    width: 60%;
     margin: 0 auto !important;
     flex-direction: column;
     font-family: avenir-lt-w01_35-light1475496, avenir-lt-w05_35-light, sans-serif;
@@ -32,7 +50,7 @@
 
 }
 
-.Pet  {
+.Pet {
     font-weight: normal;
     font-size: 1rem !important;
     width: 100%;
@@ -40,12 +58,16 @@
 
 }
 
+
 .Petinfo {
     font-weight: bold;
     text-align: start;
-    font-size: 1.1rem !important; 
+    font-size: 1.1rem !important;
     line-height: 1rem;
     color: rgb(48, 29, 16);
+}
+.Petinfo p{
+    line-height: 1.4rem;
 }
 
 .Pet a {
@@ -67,4 +89,68 @@
 
 #Adopt a {
     color: rgba(55, 33, 18, 0.753);
+}
+
+#form {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+#form form {
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-bottom: 1rem;
+}
+
+#form form .inputs {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+#form form .inputs input {
+    width: 45%;
+    margin-bottom: 0.4rem;
+}
+
+#form form .inputs textarea {
+    width: 100%;
+}
+
+#form form .inputs {
+    padding: 0;
+    margin: 0;
+}
+
+#openForm {
+    background-color: transparent;
+    border: 0;
+    font-weight: bold;
+    text-align: start;
+    font-size: 1.1rem !important;
+    line-height: 1rem;
+    color: rgba(55, 33, 18, 0.753);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.submit-form {
+    align-self: flex-end;
+    background-color: rgb(141, 85, 57) !important;
+    border-radius: 1rem;
+    border-style: solid;
+    padding-inline: 8%;
+    border-width: 0.1em !important;
+    border-color: rgb(141, 85, 57);
+    justify-content: space-evenly;
+    color: white;
+    cursor: pointer;
+}
+
+.submit-form:hover {
+    background-color: rgba(187, 117, 82, 0.8) !important;
+    border-width: 0.1em;
+    border-color: rgb(141, 85, 57);
 }

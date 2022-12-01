@@ -25,13 +25,13 @@ router.post('/', (req, res, next) => {
                 } else {
                     if (resultado == "") {
                         res.status(200).send({
-                            messagem: 'Usuário ou senha inválidos'
+                            Mensagem: 'Usuário inválido'
                         })
                     } else {
                         bcrypt.compare(password, hash, function (err, result) {
                             verify = result
-                            if (err) { return res.status(401).send({ Mensagem: 'Falha na Autenticação' }) }
-                            if (!verify) { return res.status(401).send({ Mensagem: 'Falha na Autenticação' }) }
+                            if (err) { return res.status(200).send({ Mensagem: 'Usuário inválido' }), console.log('Usuário inválido') }
+                            if (!verify) { return res.status(200).send({ Mensagem: 'Usuário inválido' }) }
                             if (verify) {
                                 let token = jwt.sign({
                                     id: user.id,

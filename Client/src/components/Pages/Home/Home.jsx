@@ -3,7 +3,7 @@ import './home.css';
 
 import Slider from '../../Slider/Slider copy';
 import Pets from '../../CardAnimal/CardAnimal';
-import { Products } from '../../Products/Products';
+import Products  from '../../Products/Products';
 
 import React from 'react';
 
@@ -36,6 +36,9 @@ const Home = () => {
             </h2>
 
             <nav className='sliderproducts'>
+                <Products></Products>
+                <Products></Products>
+                <Products></Products>
                 <Products></Products>
             </nav>
         </div>

@@ -16,14 +16,23 @@ export const AuthProvider = ({ children }) => {
         setloading(true);
         const recover = localStorage.getItem('Usuario');
         const Usuario = JSON.parse(recover);
+        // document.getElementById('btnlogin').innerHTML = (`<a href="">${Usuario.Nome}</a>`);
         if (Usuario) {
-            // document.getElementById('btnlogin').innerHTML = (`<a href="">${Usuario.Nome}</a>`);
-            document.getElementById('btnlogin').innerHTML = (`<a href="">${Usuario.Nome}
-            <ul>
-                <li className='submenu'><a href="/settings">Configurações</a></li>
-                <li className='submenu'><a href="/logout">Logout</a></li>
-                <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
-            </ul></a>`);
+            if (Usuario.Usuario == 'a') {
+                document.getElementById('btnlogin').innerHTML = (`<a href="/settings">${Usuario.Nome}
+                                                                    <ul>
+                                                                        <li className='submenu'><a href="/logout">Logout</a></li>
+                                                                        <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
+                                                                    </ul></a>`);
+            } else if (Usuario.Usuario == '@') {
+                document.getElementById('btnlogin').innerHTML = (`<a href="/settings">${Usuario.Nome}
+                                                                        <ul>
+                                                                            <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
+                                                                            <li className='submenu'><a href="/release">Novos Pets</a></li>
+                                                                            <li className='submenu'><a href="/logout">Logout</a></li>
+                                                                        </ul>
+                                                                    </a>`);
+            }
             setUser({
                 ID: (Usuario.id),
                 Nome: (Usuario.Nome),
@@ -44,24 +53,28 @@ export const AuthProvider = ({ children }) => {
             Login: Login,
             password: password
         }).then((response) => {
-            console.log(response.data.token);
-            localStorage.setItem('token', JSON.stringify(response.data));
-            const token = localStorage.getItem('token');
-            const tokenuser = JSON.parse(token);
-            localStorage.setItem('Usuario', JSON.stringify(tokenuser.Usuario));
-            const userls = localStorage.getItem('Usuario');
-            const Usuario = JSON.parse(userls);
-            console.log(Usuario);
-            if (Usuario.id) {
-                setUser({
-                    ID: (Usuario.id),
-                    Nome: (Usuario.Nome),
-                    Usuario: (Usuario.Usuario),
-                    email: (Usuario.email)
-                });
-                if (!user) {
-                    navigate('/');
-                    window.location.reload();
+            console.log(response.data)
+            if (response.data.Mensagem !== undefined) {
+                document.getElementById('mensagem').innerText = response.data.Mensagem
+            } else {
+                localStorage.setItem('token', JSON.stringify(response.data));
+                const token = localStorage.getItem('token');
+                const tokenuser = JSON.parse(token);
+                localStorage.setItem('Usuario', JSON.stringify(tokenuser.Usuario));
+                const userls = localStorage.getItem('Usuario');
+                const Usuario = JSON.parse(userls);
+                console.log(Usuario);
+                if (Usuario.id) {
+                    setUser({
+                        ID: (Usuario.id),
+                        Nome: (Usuario.Nome),
+                        Usuario: (Usuario.Usuario),
+                        email: (Usuario.email)
+                    });
+                    if (!user) {
+                        navigate('/');
+                        window.location.reload();
+                    }
                 }
             }
         });
@@ -82,22 +95,23 @@ export const AuthProvider = ({ children }) => {
             await API.post('/forgot/login', {
                 parametro: params.login
             }).then((response) => {
-                var mensagem = JSON.stringify(response.data)
-                var Mensagem = JSON.parse(mensagem);
-                console.log(Mensagem.response);
-                console.log(mensagem);
-                if (Mensagem.mensagem !== undefined) {
-                    document.getElementById('inputemail').innerText = `${Mensagem.response}`
+                var mensagem = response.data.mensagem
+                if (mensagem !== undefined) {
+                    document.getElementById('inputemail').innerText = `${mensagem}`
                 } else {
                     var INPUTfone = document.getElementById("_fone");
                     INPUTfone.style.display = 'flex';
                     var id = response.data.id[0].id
                     console.log(id)
-                    
+
 
                     localStorage.setItem('user', id);
                     const token = localStorage.getItem('user');
                     console.log(token)
+                    var INPUTfone = document.getElementById("_fone");
+                    INPUTfone.style.display = 'flex';
+
+                    
 
                 }
             })
@@ -118,23 +132,23 @@ export const AuthProvider = ({ children }) => {
                     var iduser = JSON.parse(idemail);
                     console.log(id)
                     console.log(iduser)
-                    if (id==idemail){
+                    if (id == idemail) {
                         var Newpassword = document.getElementById("_password");
                         var confirmPassword = document.getElementById("_Newpassword");
                         var login = document.getElementById("_login");
                         var fone = document.getElementById("_fone");
-                        login.style.display ='none';
-                        fone.style.display ='none';
+                        login.style.display = 'none';
+                        fone.style.display = 'none';
                         confirmPassword.style.display = 'flex';
                         Newpassword.style.display = 'flex';
-                        
+
                         var login = document.getElementById("login");
                         var fone = document.getElementById("fone");
                         console.log(login.value)
                         console.log(fone.value)
-                       
 
-                    }else{document.getElementById('mensagem').innerText = `Este numero de celular já está vinculado a outro usuario`}
+
+                    } else { document.getElementById('mensagem').innerText = `Este numero de celular já está vinculado a outro usuario` }
                 }
             })
         }
@@ -164,47 +178,45 @@ export const AuthProvider = ({ children }) => {
         }).then(
             (response) => {
                 var Mensagem = response.data.mensagem
-                console.log(Mensagem);
                 document.getElementById('mensagem').innerText = Mensagem;
                 localStorage.clear();
+                if (Mensagem == 'Inserido usuario com Sucesso!') {
+                    setTimeout(function () {
+                        navigate('/login');
+                    }, 4000);
 
-                setTimeout(function () {
-                    navigate('/login');
-                }, 4000);
-
+                }
             }
         );
         setloading(false);
     };
 
-    const newPet = async (Nome,Idade,Sexo,Peso,Porte,Raca,Desc,Date,Fone,Imagem,Uf,Cidade,Usuario) => {
+    const newPet = async (Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, Usuario) => {
         console.log('subscription sendo usado');
-        console.log(Nome,Idade,Sexo,Peso,Porte,Raca,Desc,Date,Fone,Imagem,Uf,Cidade,Usuario);
+        console.log(Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, Usuario);
 
         await API.post('/pets/newpet', {
-            Nome:Nome,
-            Idade:Idade,
-            Sexo:Sexo,
-            Peso:Peso,
-            Porte :Porte,
+            Nome: Nome,
+            Idade: Idade,
+            Sexo: Sexo,
+            Peso: Peso,
+            Porte: Porte,
             Raca: Raca,
             Desc: Desc,
             Date: Date,
             Fone: Fone,
             Imagem: Imagem,
-            Uf:Uf,
+            Uf: Uf,
             Cidade: Cidade,
             Usuario: Usuario
         }).then(
             (response) => {
                 var Mensagem = response.data.mensagem;
-                console.log(Mensagem);
+                console.log(response.data);
                 document.getElementById('mensagem').innerText = Mensagem
-                localStorage.clear();
-
                 setTimeout(function () {
-                    navigate('/login');
-                }, 4000);
+                    navigate('/');
+                }, 6000);
 
             }
         );
@@ -213,8 +225,8 @@ export const AuthProvider = ({ children }) => {
 
 
 
-    const forgotupdate = async (id,password)=>{
-        
+    const forgotupdate = async (id, password) => {
+
         await API.patch('/update/password', {
             id: id,
             parametro: password
@@ -222,9 +234,9 @@ export const AuthProvider = ({ children }) => {
             console.log(response.data);
             console.log(response.data.mensagem);
             var Mensagem = response.data.mensagem
-                console.log(Mensagem);
-                document.getElementById('mensagem').innerText = Mensagem;
-            
+            console.log(Mensagem);
+            document.getElementById('mensagem').innerText = Mensagem;
+
         });
         setloading(false);
 
@@ -236,7 +248,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, sub, newPet, signup, forgot,forgotupdate }}
+        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, sub, newPet, signup, forgot, forgotupdate }}
         >{children}
         </AuthContext.Provider>
 

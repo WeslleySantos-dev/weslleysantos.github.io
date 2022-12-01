@@ -34,7 +34,7 @@
 
 
 .CardAnimal ul li {
-    color: rgb(80, 47, 34) ;
+    color: rgb(80, 47, 34);
     text-decoration-color: none;
     list-style-type: none;
     margin-left: 0.4rem;
@@ -43,22 +43,24 @@
 }
 
 .infopet {
-    /* width: 15vw; */
+    display: flex;
+    flex-direction: column;
     padding-left: 2rem;
     padding-right: 2rem;
     font-size: 1.25rem;
-    color: rgb(48, 29, 16) ;
+    color: rgb(48, 29, 16);
     font-family: 'Times New Roman', Times, serif;
     text-align: left;
+    justify-content: space-around;
 }
 
-.infopets{
-        text-decoration-color: rgb(80, 47, 34) ;
+.infopets {
+    text-decoration-color: rgb(80, 47, 34);
 }
 
 .infopet h3 {
     font-family: 'Times New Roman', Times, serif;
-    color: rgb(48, 29, 16) ;
+    color: rgb(48, 29, 16);
 }
 
 .btnSubmit {
@@ -77,7 +79,7 @@
     background-color: rgb(244, 235, 230);
     padding: 0.8rem;
     border-color: rgb(163, 74, 33);
-    color: rgb(48, 29, 16) ;
+    color: rgb(48, 29, 16);
 
 }
 
@@ -86,4 +88,3 @@
 
 
 } */
-
