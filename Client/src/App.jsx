@@ -8,17 +8,9 @@ import './App.css';
 import Routes from "./components/Routes/routes"
 export default function App() {
   return (
-    <div className="App">
-      <div className='toppage'>
-        <TopPage></TopPage>
-
-        <div id='content'>
-          <Routes />
-        </div>
-      </div>
-      <Topbar></Topbar>
-
+    <div id="App">
+      <Routes />
     </div>
-  )
+)
 }
 

@@ -19,19 +19,25 @@ export const AuthProvider = ({ children }) => {
         // document.getElementById('btnlogin').innerHTML = (`<a href="">${Usuario.Nome}</a>`);
         if (Usuario) {
             if (Usuario.Usuario == 'a') {
-                document.getElementById('btnlogin').innerHTML = (`<a href="/settings">${Usuario.Nome}
-                                                                    <ul>
-                                                                        <li className='submenu'><a href="/logout">Logout</a></li>
-                                                                        <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
-                                                                    </ul></a>`);
+                document.getElementById('btnlogin').innerHTML = (`<p href="/settings">${Usuario.Nome}
+                <ul>
+                    <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
+                    <li className='submenu'><a href="/newproduct">Cadastrar produtos</a></li>
+                    <li className='submenu'><a href="/logout">Logout</a></li>
+                </ul>
+            </p>`
+                );
             } else if (Usuario.Usuario == '@') {
-                document.getElementById('btnlogin').innerHTML = (`<a href="/settings">${Usuario.Nome}
+                document.getElementById('btnlogin').innerHTML = (`<p href="/settings">${Usuario.Nome}
                                                                         <ul>
-                                                                            <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
                                                                             <li className='submenu'><a href="/release">Novos Pets</a></li>
+                                                                            <li className='submenu'><a href="/releaseProducts">Novos Produtos</a></li>
+                                                                            <li className='submenu'><a href="/newpet">Cadastrar pet</a></li>
+                                                                            <li className='submenu'><a href="/newproduct">Cadastrar produtos</a></li>
+                                                                            <li className='submenu'><a href="/settings">Settings</a></li>
                                                                             <li className='submenu'><a href="/logout">Logout</a></li>
                                                                         </ul>
-                                                                    </a>`);
+                                                                    </p>`);
             }
             setUser({
                 ID: (Usuario.id),
@@ -47,37 +53,45 @@ export const AuthProvider = ({ children }) => {
         , []);
 
     const login = async (Login, password) => {
-        setloading(true);
-        console.log("login", { Login, password });
-        await API.post('/login', {
-            Login: Login,
-            password: password
-        }).then((response) => {
-            console.log(response.data)
-            if (response.data.Mensagem !== undefined) {
-                document.getElementById('mensagem').innerText = response.data.Mensagem
-            } else {
-                localStorage.setItem('token', JSON.stringify(response.data));
-                const token = localStorage.getItem('token');
-                const tokenuser = JSON.parse(token);
-                localStorage.setItem('Usuario', JSON.stringify(tokenuser.Usuario));
-                const userls = localStorage.getItem('Usuario');
-                const Usuario = JSON.parse(userls);
-                console.log(Usuario);
-                if (Usuario.id) {
-                    setUser({
-                        ID: (Usuario.id),
-                        Nome: (Usuario.Nome),
-                        Usuario: (Usuario.Usuario),
-                        email: (Usuario.email)
-                    });
-                    if (!user) {
-                        navigate('/');
-                        window.location.reload();
+        try {
+            setloading(true);
+            console.log("login", { Login, password });
+            await API.post('/login', {
+                Login: Login,
+                password: password
+            }).then((response) => {
+                console.log(response.data)
+                if (response.data.Mensagem !== undefined) {
+                    document.getElementById('mensagem').innerText = response.data.Mensagem
+                } else {
+                    localStorage.setItem('tokenolder', JSON.stringify(response.data));
+                    let token = localStorage.getItem('tokenolder');
+                    localStorage.clear()
+                    let tokenuser = JSON.parse(token);
+                    localStorage.setItem('Usuario', JSON.stringify(tokenuser.Usuario));
+                    console.log(tokenuser.token)
+                    localStorage.setItem('token', JSON.stringify('Bearer ' + tokenuser.token));
+                    let userls = localStorage.getItem('Usuario');
+                    let Usuario = JSON.parse(userls);
+                    console.log(Usuario);
+                    if (Usuario.id) {
+                        setUser({
+                            ID: (Usuario.id),
+                            Nome: (Usuario.Nome),
+                            Usuario: (Usuario.Usuario),
+                            email: (Usuario.email)
+                        });
+                        if (!user) {
+                            navigate('/');
+                            window.location.reload();
+                        }
                     }
                 }
-            }
-        });
+            });
+        } catch (error) {
+            document.getElementById('mensagem').innerText = error.response.data
+            console.log(error.response.data)
+        }
         setloading(false);
 
 
@@ -111,7 +125,7 @@ export const AuthProvider = ({ children }) => {
                     var INPUTfone = document.getElementById("_fone");
                     INPUTfone.style.display = 'flex';
 
-                    
+
 
                 }
             })
@@ -192,9 +206,8 @@ export const AuthProvider = ({ children }) => {
     };
 
     const newPet = async (Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, Usuario) => {
-        console.log('subscription sendo usado');
+        console.log('Cadastrando Pet');
         console.log(Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, Usuario);
-
         await API.post('/pets/newpet', {
             Nome: Nome,
             Idade: Idade,
@@ -208,21 +221,56 @@ export const AuthProvider = ({ children }) => {
             Imagem: Imagem,
             Uf: Uf,
             Cidade: Cidade,
-            Usuario: Usuario
+            Usuario: Usuario,
         }).then(
             (response) => {
                 var Mensagem = response.data.mensagem;
                 console.log(response.data);
-                document.getElementById('mensagem').innerText = Mensagem
-                setTimeout(function () {
+                alert(Mensagem);
+                if (!confirm('Deseja adicionar mais Pets ?')) {
                     navigate('/');
-                }, 6000);
-
+                } else {
+                    window.location.reload();
+                }
             }
         );
+
+
+
         setloading(false);
     };
 
+    const newProduct = async (Nome, Fornecedor, Desc, Preco, ProdServ, Tamanhos, Medidas, Peso, Volume, Tamanho, Fone, Imagem, Usuario) => {
+        console.log('Cadastrando Produto...');
+        console.log(Nome, Desc, Preco, ProdServ, Tamanhos, Medidas, Peso, Volume, Tamanho, Fone, Imagem, Usuario);
+      
+            await API.post('/products/newproduct', {
+                Nome: Nome,
+                Fornecedor: Fornecedor,
+                Descricao: Desc,
+                Preco: Preco,
+                ProdServ: ProdServ,
+                Tamanhos: Tamanhos,
+                Medidas: Medidas,
+                Peso: Peso,
+                Volume: Volume,
+                Tamanho: Tamanho,
+                Fone: Fone,
+                Imagem: Imagem,
+                Usuario: Usuario
+            }).then((response) => {
+                    var Mensagem = response.data.mensagem;
+                    console.log(response.data);
+                    alert(Mensagem);
+                    if (!confirm('Deseja adicionar mais Produtos ?')) {
+                        navigate('/');
+                    } else {
+                        window.location.reload();
+                    }
+                }
+            );
+              setloading(false);
+    }
 
 
     const forgotupdate = async (id, password) => {
@@ -248,7 +296,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     return (
-        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, sub, newPet, signup, forgot, forgotupdate }}
+        <AuthContext.Provider value={{ authenticated: !!user, user, loading, login, logout, sub, newPet, newProduct, signup, forgot, forgotupdate }}
         >{children}
         </AuthContext.Provider>
 

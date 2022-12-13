@@ -10,7 +10,7 @@
 
 .forgot-banner {
     height: calc(100% - 8.05rem);
-    background-image: url('../../../assets/Imagens/banner_login.jpg');
+    background-color: inherit;
     background-size: 100% 100%;
 }
 

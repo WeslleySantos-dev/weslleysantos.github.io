@@ -9,11 +9,6 @@ body {
   margin: 0;
 }
 
-.app {
-  display: flex;
-  /* width: 100%;
-  height: 100%; */
-}
 
 .Welcome {
   display: flex;
@@ -41,10 +36,10 @@ body {
   text-align: center;
   margin-top: 2rem;
   width: 45%;
-  font-weight: 600;
-  font-size: 1rem;
-  color: rgb(48, 29, 16);
- font-family: light1475496,avenir-lt-w05_35-light,sans-serif;
+  font-weight:bolder;
+  font-size: 0.87rem;
+  color: rgb(58, 40, 28);
+  font-family:Arial,Helvetica,sans-serif;
  line-height: 1.875em;
  letter-spacing: 0em;
 }
@@ -53,7 +48,7 @@ h2 {
   font-size: 3.5rem;
   font-weight: 400;
   margin-top: 2rem;
-  color: rgb(48, 29, 16);
+  color: rgb(58, 40, 28);
   font-family: ncormorantgaramond-semibold, cormorantgaramond, cormorant, garamond, serif;
 }
 
@@ -64,10 +59,26 @@ h2 {
   justify-content: space-between;
 }
 
+
 .sliderproducts {
   display: flex;
-  margin: 0 auto;
-  width: 50%;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 90%;
   flex-direction: row;
-  justify-content: space-between;
+
+}
+.sliderservices {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  width: 90%;
+  flex-direction: row;
+
 }

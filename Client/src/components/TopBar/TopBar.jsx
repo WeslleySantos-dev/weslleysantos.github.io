@@ -3,21 +3,13 @@ import './TopBar.css'
 import img_insta from './assets/instagram.svg'
 import img_fb from './assets/facebook.svg'
 import img_Twitter from './assets/twitter.svg'
-import './responsive'
 import React from 'react';
 
 function menushow() {
     console.log('!');
     let menuMobile = document.getElementsByClassName('menumob');
-    console.log(menuMobile[0],menuMobile[1]);
-
     menuMobile[0].classList.toggle('active')
     menuMobile[1].classList.toggle('active')
-    // if (menuMobile.classList.contains('active')) {
-    //     menuMobile.classList.remove('active');
-    // } else {
-    //     menuMobile.classList.add('active');
-    // }
 }
 
 
@@ -31,12 +23,12 @@ export function Topbar() {
                     <div className='line3'></div>
                 </div>
                 <div className=''></div>
-                <ul className='menumob'>
+                <ul className='links menumob'>
                     <li className='btnTopBar'>
                         <a href="/">Pagina Inicial</a>
                     </li>
                     <li className='btnTopBar'>
-                        <a href="">Sobre</a>
+                        <a href="/about">Sobre</a>
                         {/* <ul>
                             <li className='submenu'><a href="">Objetivo</a></li>
                             <li className='submenu'><a href="">Storytelling</a></li>
@@ -46,7 +38,10 @@ export function Topbar() {
                     </li>
 
                     <li className='btnTopBar'>
-                        <a href="">Nossos Serviços</a>
+                        <a href="/services">Nossos Serviços</a>
+                    </li>
+                    <li className='btnTopBar'>
+                        <a href="/products">Produtos</a>
                     </li>
                     <li className='btnTopBar'>
                         <a href="/pets">Adote um Pet</a>

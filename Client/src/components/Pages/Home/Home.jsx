@@ -3,7 +3,10 @@ import './home.css';
 
 import Slider from '../../Slider/Slider copy';
 import Pets from '../../CardAnimal/CardAnimal';
-import Products  from '../../Products/Products';
+import Products from '../Products/Products';
+import Services from '../Services/Services';
+
+import { Rodape } from "../..//Rodape/rodape"
 
 import React from 'react';
 
@@ -31,16 +34,18 @@ const Home = () => {
                 <Pets></Pets>
             </div>
 
-            <h2>
-                Produtos
-            </h2>
-
+            <h2>Produtos</h2>
             <nav className='sliderproducts'>
                 <Products></Products>
-                <Products></Products>
-                <Products></Products>
-                <Products></Products>
             </nav>
+
+            <h2>Nossos Serviços</h2>
+            <nav className='sliderservices'>
+                <Services></Services>
+            </nav>
+
+            <Rodape></Rodape>
+
         </div>
     )
 };

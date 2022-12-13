@@ -25,7 +25,6 @@ export default class Pet extends Component {
         pet = this.state.infopet;
         let prefix = ''
         let number = ''
-        console.log(pet.Sexo);
         if (pet.Contato) {
             number = pet.Contato.replace("(", "").replace(")", "").replace(" ", "").replace("-", "")
             pet.Contato = number
@@ -85,62 +84,65 @@ export default class Pet extends Component {
             }
         }
         return (
-            <div>
+            <div className='petselect'>
 
-                <div className='imgpet'>
-                    <img id='img' className='img' src={pet.Imagem} alt="" />
-                </div>
 
-                <div className="adoption">
-                    <div className="Myhistory Pet">
-                        <h2>Minha História</h2>
-                        <br />
-                        <h3>Adote {prefix} {pet.NomePet}</h3>
-                        <h4>{pet.Sexo}</h4>
-                        <p>{pet.Descricao}</p>
+                <div className='pet'>
+
+                    <div className='imgpet'>
+                        <img id='img' className='img' src={pet.Imagem} alt="" />
                     </div>
-                    <div id='Adopt' className='Pet'>
-                        {/* <a href={'https://api.whatsapp.com/send?phone=55' + pet.Contato + '&text=Olá!%20Vim%20através%20do%20Cantinho%20Pet%20Stop,%20gostaria%20de%20adotar%20' + prefix + '%20' + pet.NomePet} target={'_blank'}> Quero adotar {prefix} {pet.NomePet}</a> */}
-                        <button id='openForm' onClick={openForm}>Quero adotar {prefix} {pet.NomePet}</button>
-                    </div>
-                    <div id='form' style={{ display: 'none' }} >
-                        <form id="formdata" action="https://formsubmit.co/weslleysantosdev@gmail.com" method="post" preventDefault>
-                            
-                            <input type="hidden" name="_subject" value={'Adoção d' + prefix + ' ' + pet.NomePet}></input>
-                            <div className='inputs'>
-                                <input  name="Nome" type="text" placeholder='Insira seu nome' required />
-                                <input  name="e-mail" type='email' placeholder='Insira seu e-mail' required/>
-                            </div>
-                            <div className='inputs'>
-                                <input type="tel" name="Fone" id="" placeholder='Digite seu telefone' onChange={formatNumber} required />
-                                <input type="text" name="Endereço" id="" placeholder='Insira seu endereço' required />
-                            </div>
-                            <div className='inputs'>
-                                <input type="text" name="CEP" id="CEP" placeholder='Cep' maxLength={9} onChange={formatCEP} required />
-                                <input type="text" name="CPF" id="CPF" placeholder='CPF' maxLength={11} required />
-                            </div>
-                            
-                            
-                            <div className='inputs'>
-                                <textarea name="Mensagem" id="" cols="40" rows="5" required></textarea>
-                            </div>
+
+                    <div className="adoption">
+                        <div className="Myhistory Pet">
+                            <h2>Minha História</h2>
                             <br />
-                            <input type="hidden" name="_cc" value=" weslley.dsmar@gmail.com "></input>
-                            <input type="hidden" name="_next" value="http://localhost:5173/"></input>
-                            <input type="hidden" name="_captcha" value="false"></input>
-                            <button className='submit-form' type='submit' > Enviar</button>
-                        </form>
+                            <h3>Adote {prefix} {pet.NomePet}</h3>
+                            <h4>{pet.Sexo}</h4>
+                            <p>{pet.Descricao}</p>
+                        </div>
+                        <div id='Adopt' className='Pet'>
+                            {/* <a href={'https://api.whatsapp.com/send?phone=55' + pet.Contato + '&text=Olá!%20Vim%20através%20do%20Cantinho%20Pet%20Stop,%20gostaria%20de%20adotar%20' + prefix + '%20' + pet.NomePet} target={'_blank'}> Quero adotar {prefix} {pet.NomePet}</a> */}
+                            <button id='openForm' onClick={openForm}>Quero adotar {prefix} {pet.NomePet}</button>
+                        </div>
+                        <div id='form' style={{ display: 'none' }} >
+                            <form id="formdata" action="https://formsubmit.co/weslleysantosdev@gmail.com" method="post" preventDefault>
+
+                                <input type="hidden" name="_subject" value={'Adoção d' + prefix + ' ' + pet.NomePet}></input>
+                                <div className='inputs'>
+                                    <input name="Nome" type="text" placeholder='Insira seu nome' required />
+                                    <input name="e-mail" type='email' placeholder='Insira seu e-mail' required />
+                                </div>
+                                <div className='inputs'>
+                                    <input type="tel" name="Fone" id="Fone" placeholder='Digite seu telefone' onChange={formatNumber} required />
+                                    <input type="text" name="Endereço" id="" placeholder='Insira seu endereço' required />
+                                </div>
+                                <div className='inputs'>
+                                    <input type="text" name="CEP" id="CEP" placeholder='Cep' maxLength={9} onChange={formatCEP} required />
+                                </div>
+
+
+                                <div className='inputs'>
+                                    <textarea name="Mensagem" id="" cols="40" rows="5" required></textarea>
+                                </div>
+                                <br />
+                                <input type="hidden" name="_cc" value={pet.Email}></input>
+                                <input type="hidden" name="_next" value="http://localhost:5173/"></input>
+                                <input type="hidden" name="_captcha" value="false"></input>
+                                <button className='submit-form' type='submit' > Enviar</button>
+                            </form>
+                        </div>
+
+
+                        <div className='Petinfo'>
+                            <p>Idade: {pet.IdadePet}</p>
+                            <p>Porte: {pet.Porte}</p>
+                            <p>Sexo: {pet.Sexo}</p>
+                        </div>
+
                     </div>
-
-
-                    <div className='Petinfo'>
-                        <p>Idade: {pet.IdadePet}</p>
-                        <p>Porte: {pet.Porte}</p>
-                        <p>Sexo: {pet.Sexo}</p>
-                    </div>
-
-                </div>
-            </div >
+                </div >
+            </div>
         )
     };
 

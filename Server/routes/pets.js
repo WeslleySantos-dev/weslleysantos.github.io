@@ -1,14 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('../mysql').pool;
-
+const auth = require('./auth');
 
 //RETORNA TODOS OS DADOS DE PRODUTOS
 router.get('/', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) };
         conn.query(
-            'Select * from Pets where status = 0;',
+            'Select * from Pets where status = 0 order by idpet desc LIMIT 8;',
             (error, resultado, fields) => {
                 conn.release();
                 if (error) { return res.status(500).send({ error: error }) }
@@ -18,11 +18,23 @@ router.get('/', (req, res, next) => {
     });
 });
 
+router.get('/all', (req, res, next) => {
+    mysql.getConnection((error, conn) => {
+        if (error) { return res.status(500).send({ error: error }) };
+        conn.query(
+            'Select * from Pets where status = 0 order by idpet desc;',
+            (error, resultado, fields) => {
+                conn.release();
+                if (error) { return res.status(500).send({ error: error }) }
+                return res.status(200).json({ Pets: resultado })
+            }
+        );
+    });
+});
 //INSERE DADOS DE UM PRODUTO
 router.post('/newpet', async (req, res) => {
-
     const { Nome, Idade, Sexo, Peso, Porte, Raca, Desc, Date, Fone, Imagem, Uf, Cidade, Usuario } = req.body
-    await mysql.getConnection((error, conn) => {
+    mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
             'INSERT INTO pets (NomePet, Idadepet, Sexo, Peso, Porte, Raca, Descricao, Data, Contato, Imagem, UF, Cidade, Status, IDUsuario) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);',
@@ -30,7 +42,8 @@ router.post('/newpet', async (req, res) => {
             (error, resultado, field) => {
                 conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
                 if (error) {
-                    console; console.log(error.sqlMessage);
+                    console.log(error)
+                    console.log(error.sqlMessage)
                     return res.status(500).send({ error: error })
                 }
                 return res.status(201).send({
@@ -43,12 +56,13 @@ router.post('/newpet', async (req, res) => {
 });
 
 
-//RETORNA OS DADDOS DE "1" PRODUTO
+//RETORNA OS DADDOS DE "1" Pet
 router.post('/:id_pet', (req, res, next) => {
     mysql.getConnection((error, conn) => {
         if (error) { return res.status(500).send({ error: error }) }
         conn.query(
-            'Select * from Pets where idPet=?;', [req.params.id_pet],
+
+            'select *, u.Email from pets p inner join users u on p.idUsuario = u.id and p.idPet=? and status=0;', [req.params.id_pet],
             (error, resultado, fields) => {
                 conn.release();
                 if (error) { return res.status(500).send({ error: error }) }

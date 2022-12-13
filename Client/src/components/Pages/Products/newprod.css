@@ -1,94 +1,77 @@
-.sub-card {
+.content {
+    justify-content: center;
+    display: flex;
+    /* height: calc(100% - 8.1rem); */
+    margin: 4rem 0 4rem 0;
+}
+
+.prod-card {
     display: inline-block;
     background-color: rgb(160, 108, 63);
     /* superior | direita | inferior | esquerda */
     padding: 0rem 1rem 2rem 1rem;
-    width: 25%;
+    width: 35%;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    min-height: min-content;
     min-width: min-content;
     flex-direction: column;
     border-radius: 1rem;
     color: white;
-
-
+ 
 }
 
-.sub-banner {
-    height: 100%;
-    background-image: url('../../../assets/Imagens/banner_login.jpg');
-    background-size: 100% 100%;
-}
-
-.sub-card h2 {
-    margin-top: 1rem;
-    font-size: 2rem;
-    width: 100% !important;
-}
-
-.sub {
-    display: flex;
+.prod-banner {
+    position: absolute;
+    top: 8.1rem;
     width: 100%;
-    align-items: flex-end;
-    flex-direction: row;
-    align-content: center;
-    justify-content: space-between;
-    padding-bottom: 0.4rem;
+    /* height: calc(100% - 8.1rem); */
+    
 }
 
-.sub input {
-    display: block;
-    width: 70%;
-}
 
-.sub button:hover{
+
+.sub button:hover {
     background-color: rgba(247, 183, 151, 1) !important;
 }
 
-#foto{
+#foto {
     background: transparent;
     border: 0;
 }
 
-.submit-form{
+.submit-form {
     align-self: flex-end;
     background-color: rgb(141, 85, 57) !important;
     border-radius: 1rem;
     border-style: solid;
     padding-inline: 8%;
     border-width: 0.1em !important;
-    border-color:  rgb(141, 85, 57) ;
+    border-color: rgb(141, 85, 57);
     justify-content: space-evenly;
     color: white;
     cursor: pointer;
 }
+
 .submit-form:hover {
     background-color: rgba(187, 117, 82, 0.8) !important;
     border-width: 0.1em;
-    border-color:  rgb(141, 85, 57) ;
+    border-color: rgb(141, 85, 57);
 }
 
 
-.sub-card form p {
+.prod-card form p {
     margin-top: 0rem;
     margin-bottom: 0rem;
     display: block;
     text-align: end;
-    /* height: 1rem; */
+    min-height: min-content;
 
     color: rgb(246, 255, 0);
     /* width: 100%; */
     overflow: hidden;
 }
 
-.sub label {
-    width: 25%;
-    text-align: end;
-    overflow: hidden;
-}
-
-.CPF {
-    -webkit-nbsp-mode: normal;
-    margin: 0;
-}
 
 
 .submit_sub {
@@ -97,28 +80,12 @@
     justify-content: flex-end;
 }
 
-#petphoto {
+#prodPhoto {
     margin-top: 4%;
-    width: 92%;
-    height: 40%;
+    width: 100% !important;
+    height: 50%;
+    border-radius: 1rem;
 }
-
-#Sexo {
-    text-transform: uppercase;
-}
-
-#Porte {
-    text-transform: uppercase;
-}
-
-#UF {
-    text-transform: uppercase;
-}
-
-#Cidade {
-    text-transform: uppercase;
-}
-
 
 #Descricao {
     outline-style: 0.3rem solid;
@@ -137,4 +104,8 @@
 
 #Desc {
     align-items: flex-start;
+}
+
+#ProdServ{
+    text-transform: uppercase;
 }

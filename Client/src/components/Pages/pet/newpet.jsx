@@ -4,13 +4,13 @@ import { AuthContext } from '../../Contexts/auth';
 
 
 
-export default function Home() {
+export default function NewPetAdd() {
     const { authenticated, newPet } = useContext(AuthContext);
     const [values, setValues] = useState();
 
     const handleChangeImage = () => {
         var photo = document.getElementById('foto').files;
-                if (photo.length > 0) {
+        if (photo.length > 0) {
             var img = photo[0];
             var readfile = new FileReader();
 
@@ -201,8 +201,6 @@ export default function Home() {
     }
     const handleClickButton = async () => {
         var PetValid = validate();
-        console.log(PetValid.Nome);
-
         const recover = localStorage.getItem('Usuario');
         const Usuario = JSON.parse(recover);
         console.log(Usuario.id);
@@ -226,14 +224,14 @@ export default function Home() {
     };
 
     return (
-        <div className='sub-banner'>
-            <div className='sub-card'>
+        <div className='sub-banner-pet'>
+            <div className='subPet-card'>
+                <h2>Cadastro de Pet</h2>
                 <div style={{ display: 'none' }} id='imagempet'>
                     <img id='petphoto' src="" alt="" onChange={handleChangeValues} value={document.getElementById("petphoto")} />
                 </div>
-                <h2>Cadastro de Pet</h2>
                 <p id='mensagem'></p>
-                <form method='post' >
+                <form method='post'>
                     <p className='msgalert'></p>
                     <div className='sub'>
                         <label htmlFor="foto">Foto do Pet:</label>
@@ -361,23 +359,21 @@ export default function Home() {
                     <div style={{ display: 'none' }} id='Desc' className='sub'>
                         <label htmlFor="Desc">Descrição:</label>
 
-                        <textarea name="Desc" id="Descricao" cols="30" rows="10" onChange={handleChangeValues} placeholder='Digite a história e informações adicionais do pet'></textarea>
+                        <textarea name="Desc" maxLength='2022' id="Descricao" cols="30" rows="10" onChange={handleChangeValues} placeholder='Digite a história e informações adicionais do pet'></textarea>
                         {/*                         
                         <input
-                            type="text"
-                            name="Desc"
-                            id="Descricao"
-                            onChange={handleChangeValues}
-                           
-                        /> */}
+                        type="text"
+                        name="Desc"
+                        id="Descricao"
+                        onChange={handleChangeValues}
+                        
+                    /> */}
                     </div>
                 </form>
-                <div >
-                    <button className='submit-form'onClick={() => handleClickButton()}>Cadastrar</button>
-                </div>
+                    <button className='submit-form' onClick={() => handleClickButton()}>Cadastrar</button>
+
 
             </div>
-            <h2>Seja Bem Vindo(a)!!!</h2>
         </div>
     )
 };

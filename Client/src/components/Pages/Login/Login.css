@@ -5,13 +5,19 @@
     width: 15rem;
     flex-direction: column;
     border-radius: 1rem;
-
+    display: inline-block;
+    flex-direction: row;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
+
 .login-banner {
-    height: 100%;
-    background-image: url('../../../assets/Imagens/banner_login.jpg');
-    background-size: 100% 100%;
+    top: 8.1rem;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 8.1rem);
+
 }
 
 .login-card h2 {
@@ -30,12 +36,7 @@
     padding-bottom: 0.4rem;
 }
 
-.login-card {
-    display: inline-block;
-    flex-direction: row;
-    margin-top: 4rem;
 
-}
 
 .submit {
     display: flex;

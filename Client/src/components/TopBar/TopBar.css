@@ -10,15 +10,14 @@ a {
 
 .Topbar .buttonstop {
     display: flex;
-    width: 100%;
-    height: 2%;
-    top: 6rem;
     position: absolute;
-    background-color: rgba(247, 183, 151, 1);
+    width: 100%;
+    height: 2rem;
+    top: 5.8rem;
+    background-color: rgb(238, 179, 147);
     flex-direction: row;
     justify-content: space-between;
-    padding-block: 0.3rem;
-
+    padding-block: 0.2rem;
     align-items: flex-start;
     align-content: center;
 }
@@ -29,7 +28,7 @@ a {
     flex-direction: row;
     align-self: center;
     justify-content: space-between;
-    
+
 
 }
 
@@ -37,45 +36,77 @@ a {
 .buttonstop ul {
     display: flex;
     margin: 0% !important;
-    transition: display 1s;
+    padding-top: 0.2rem;
+    /* transition: display 1s; */
 
 }
 
 .buttonstop .btnTopBar ul {
     display: none;
-
-}
-
-.buttonstop .btnTopBar ul li:hover {
-    width: 100% !important;
-    background-color: rgba(247, 183, 151, 1);
-
-}
-
-.buttonstop:hover>.btnTopBar {
-    height: 0px;
-
+    position: relative;
+    align-items: flex-start;
+    top: 0rem;
+    left: 0rem;
 
 }
 
 .buttonstop .btnTopBar ul li {
     margin: 0rem !important;
     padding: 0.2rem;
-    border-radius: 0.2px;
+
+    text-align: left;
 }
 
-.buttonstop .btnTopBar:hover>ul {
-    flex-direction: column;
-    position: relative;
-
+#btnlogin {
     display: flex;
+    flex-direction: column;
+    width: 5rem;
+    padding: 0;
+    border-radius: rem !important;
+}
+
+#btnlogin a:hover {
+    background-color: rgba(247, 183, 151, 1);
+    border-radius: 0.4rem;
+}
+
+#btnlogin p:hover {
+    color: rgb(255, 255, 255);
+    background-color: rgba(247, 183, 151, 1);
+    border-radius: 0.4rem;
+}
+
+.btnTopBar p {
+    cursor: pointer;
+    color: rgb(92, 83, 94);
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+
+#btnlogin li:hover {
+    background-color: rgba(247, 183, 151, 1);
+    border-radius: 0.4rem;
+}
+
+
+
+
+.buttonstop .btnTopBar:hover>ul {
+    display: block;
     background-color: rgb(234, 143, 97);
     padding: 0%;
     margin: 0rem;
-    margin-top: 0.1rem !important;
-    margin-left: -0.4rem !important;
-    border-radius: 0.2rem;
-    text-align: center;
+    transition: 1s;
+
+}
+
+
+.buttonstop .btnTopBar ul li:hover {
+    display: block;
+    background-color: rgb(234, 143, 97);
+
 }
 
 
@@ -108,7 +139,6 @@ a {
     border: 0.09rem solid transparent;
     padding-inline: 0.4rem;
     border-radius: 0.4rem;
-    transition: border-color 0.25s;
 }
 
 
@@ -135,7 +165,6 @@ a {
     background-color: transparent;
     border: solid transparent;
     border-radius: 1rem;
-    transition: border-color 0.25s;
     display: flex;
     margin: 0%;
     padding: 0%;
@@ -172,123 +201,3 @@ a {
 }
 
 
-
-/* Responsivo---------------------------------------------- */
-@media (max-width:999px) {
-    .buttonstop {
-        width: 100% !important;
-        top: 5.6rem !important;
-        margin-top: 0.3rem;
-        right: 0;
-        height: 2%;
-        align-items: flex-end !important;
-        flex-direction: column !important;
-        justify-content: normal !important;
-
-    }
-
-    .buttonstop ul {
-        display: none;
-        background-color: rgba(247, 183, 151, 1);
-        margin-top: 0.5rem !important;
-        width: 15% !important;
-        flex-direction: column;
-            }
-
-    .SocialMidias {
-        display: none;
-        border-radius: 0 0 0 1rem;
-        background-color: rgba(247, 183, 151, 1);
-        width: 15% !important;
-        padding-top: 1rem;
-        padding: 0 auto;
-        margin: 0;
-        /* flex-direction: column; */
-        align-self: flex-end !important;
-        transform: translateX(100%);
-        justify-content: center;
-    }
-
-    body {
-        overflow-x: hidden;
-    }
-
-    #content {
-        position: relative;
-        margin-top: 1.4rem !important;
-        }
-
-    /* #btnlogin  ul {
-        
-        padding-left: 0 !important;
-        margin: 0 !important;
-        width: 100% !important;
-        text-align: left;
-        
-    } */
-
-    #btnlogin ul li {
-        width: 100% !important;
-    } 
-
-    .nullspace {
-        display: none;
-    }
-
-
-
-    .buttonstop ul li {
-
-        padding-top: 0.4rem;
-
-    }
-
-    .mobile-menu {
-        display: block;
-        margin-right: 1rem;
-        margin-top: 0.5;
-    }
-
-
-
-    .ButtonsMidias {
-        width: min-content;
-        /* align-self: center !important; */
-    }
-
-    .buttonstop .btnTopBar ul li:hover {
-        width: 100% !important;
-        background-color: rgba(247, 183, 151, 1);
-
-    }
-    #btnlogin:hover ul{
-        display: flex;
-        width: 100;
-        margin: 0 !important;
-        padding-left: 0 !important;
-
-    }
-
-    .buttonstop .btnTopBar ul {
-        margin: 0 !important;
-        padding: 0 !important;
-        width: 100% !important;
-        background-color: rgba(0, 0, 0, 0) !important;
-    }
-
-    .buttonstop .btnTopBar ul li:hover {
-        
-        background-color: rgba(247, 183, 151, 1);
-    }
-
-
-
-    .menumob.active {
-        transform: translateX(0%);
-        display: flex;
-    }
-
-
-
-    
-}
