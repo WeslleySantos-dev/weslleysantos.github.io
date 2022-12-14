@@ -24,37 +24,13 @@ export function Topbar() {
                 </div>
                 <div className=''></div>
                 <ul className='links menumob'>
-                    <li className='btnTopBar'>
-                        <a href="/">Pagina Inicial</a>
-                    </li>
-                    <li className='btnTopBar'>
-                        <a href="/about">Sobre</a>
-                        {/* <ul>
-                            <li className='submenu'><a href="">Objetivo</a></li>
-                            <li className='submenu'><a href="">Storytelling</a></li>
-                            <li className='submenu'><a href="">Equipe</a></li>
-
-                        </ul> */}
-                    </li>
-
-                    <li className='btnTopBar'>
-                        <a href="/services">Nossos Serviços</a>
-                    </li>
-                    <li className='btnTopBar'>
-                        <a href="/products">Produtos</a>
-                    </li>
-                    <li className='btnTopBar'>
-                        <a href="/pets">Adote um Pet</a>
-                    </li>
-                    <li className='btnTopBar'>
-                        <a href="">Perguntas Frequentes</a>
-                    </li>
-                    <li className='btnTopBar'>
-                        <a href="">Blog</a>
-                    </li>
-                    <li className='btnTopBar' id='btnlogin'>
-                        <a href="/login">Login</a>
-                    </li>
+                    <li className='btnTopBar'><a href="/">Pagina Inicial</a></li>
+                    <li className='btnTopBar'><a href="/about">Sobre</a></li>
+                    <li className='btnTopBar'><a href="/services">Nossos Serviços</a></li>
+                    <li className='btnTopBar'><a href="/products">Produtos</a></li>
+                    <li className='btnTopBar'><a href="/pets">Adote um Pet</a></li>
+                    <li className='btnTopBar'><a href="/perguntas-frequentes">Perguntas Frequentes</a></li>
+                    <li className='btnTopBar' id='btnlogin'><a href="/login">Login</a></li>
                 </ul>
                 <div className='SocialMidias menumob'>
                     <button className='ButtonsMidias'>
@@ -62,13 +38,11 @@ export function Topbar() {
                             <img src={img_insta} alt="Logo do Instagram" className='midiaslogo' />
                         </a>
                     </button>
-
                     <button className='ButtonsMidias'>
                         <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
                             <img src={img_fb} alt="Logo do Facebook" className='midiaslogo' />
                         </a>
                     </button>
-
                     <button className='ButtonsMidias'>
                         <a href="https://cantinhopetstop.wixsite.com/cantinhopetstop/pt" className='imgsocialmedia'>
                             <img src={img_Twitter} alt="Logo do Twitter" className='midiaslogo' />
@@ -76,8 +50,6 @@ export function Topbar() {
                     </button>
                 </div>
             </nav>
-
-
         </div>
     )
 }

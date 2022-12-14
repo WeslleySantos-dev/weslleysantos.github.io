@@ -5,128 +5,55 @@ const response = require('../app');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const saltRounds = 10;
-var query =''
+var query = ''
 
 
 //ATUALIZA CONTA DE USUARIO
-router.patch('/:parameters', (req, res, next) => {
-    const { parametro, id } = req.body
+router.patch('/', (req, res, next) => {
+    const { Nome, Sobrenome, Email, Fone, Login, Id } = req.body
     const tpquery = req.params.parameters
-    switch (tpquery) {
-        case "nome":
-            query = 'update users set nome = ? where id =?'
-            break;
-        case "login":
-            query = 'update users set login = ? where id =?'
-            break;
-        case "email":
-            query = 'update users set email = ? where id =?'
-            break;
-        case "password":
-            query = 'update users set passuser = ? where id =?'
-            break;
-        case "fone":
-            query = 'update users set fone = ? where id =?'
-            break;
-        case "pessoa":
-            query = 'update users set pessoa = ? where id =?'
-            break;
-    }
+
+    query = 'update users set  Nome = ?, Sobrenome = ?, Email = ?, Fone = ?, Login  = ?, where id =?'
+
     mysql.getConnection(async (error, conn) => {
         const salt = await bcrypt.genSalt(saltRounds)
         const Password = await bcrypt.hash(parametro, salt)
-        conn.query('Select nome from users where  id =?;', [id], (error, resultado, fields) => {
+        conn.query('Select nome from users where  login =? and id<>?;', [Login, Id], (error, resultado, fields) => {
             if (error) { return res.status(500).send({ error: error }) }
-            if (resultado == "") {
-                conn.release();
+            if (resultado != "") {
                 return res.status(404).send({
-                    mensagem: "Este usuario não existe",
+                    mensagem: "Este login já está sendo utilizado por outro usuario"
                 })
-            } else if (tpquery == "login") {
-                conn.query('Select nome from users where  login =?;', [parametro], (error, resultado, fields) => {
+            } else {
+                conn.query('Select nome from users where  email =?  and id<>?;', [Email, Id], (error, resultado, fields) => {
                     if (error) { return res.status(500).send({ error: error }) }
                     if (resultado != "") {
-                        conn.release();
-                        return res.status(404).send({
-                            mensagem: "Este login já está sendo utilizado por outro usuario",
-                            tpquery,
-                            parametro,
-                            resultado
-                        })
-                    } else {
-                        conn.query(query, [parametro, id], (error, resultado, field) => {
-                            conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
-                            if (error) { return res.status(500).send({ error: error }) }
-                            res.status(201).send({
-                                mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
-                                resultado
-                            })
-                        }
-                        )
-                    }
-                })
-
-            } else if (tpquery == "email") {
-                conn.query('Select nome from users where  email =?;', [parametro], (error, resultado, fields) => {
-                    if (error) { return res.status(500).send({ error: error }) }
-                    if (resultado != "") {
-                        conn.release();
                         return res.status(404).send({
                             mensagem: "Este email já está sendo utilizado por outro usuario",
                         })
                     } else {
-                        conn.query(query, [parametro, id], (error, resultado, field) => {
-                            conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
+                        conn.query('Select nome from users where  fone =? and id<>?;', [Fone, Id], (error, resultado, fields) => {
                             if (error) { return res.status(500).send({ error: error }) }
-                            res.status(201).send({
-                                mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
-                                resultado
-                            })
-                        }
-                        )
-                    }
-                })
-
-            } else if (tpquery == "fone") {
-                conn.query('Select nome from users where  fone =?;', [parametro], (error, resultado, fields) => {
-                    if (error) { return res.status(500).send({ error: error }) }
-                    if (resultado != "") {
-                        conn.release();
-                        return res.status(404).send({
-                            mensagem: "Este fone já está sendo utilizado por outro usuario",
-                        })
-                    } else {
-                        conn.query(query, [parametro, id], (error, resultado, field) => {
-                            conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
-                            if (error) { return res.status(500).send({ error: error }) }
-                            res.status(201).send({
-                                mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
-                                resultado
-                            })
+                            if (resultado != "") {
+                                conn.release();
+                                return res.status(404).send({
+                                    mensagem: "Este fone já está sendo utilizado por outro usuario",
+                                })
+                            } else {
+                                conn.query(query, [parametro, id], (error, resultado, field) => {
+                                    conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
+                                    if (error) { return res.status(500).send({ error: error }) }
+                                    res.status(201).send({
+                                        mensagem: 'Atualizado com Sucesso!',
+                                    })
+                                })
+                            }
                         })
                     }
-                })
-            } else if (tpquery == "password") {
-                console.log(Password, id);
-                conn.query(query, [Password, id], (error, resultado, field) => {
-                    conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
-                    if (error) { return res.status(500).send({ error: error }) }
-                    res.status(201).send({
-                        mensagem: 'Senha atualizada com sucesso!',
-                    })
-                })
-            } else {
-                conn.query(query, [parametro, id], (error, resultado, field) => {
-                    conn.release();  //ENCERRA CONEXÃO APÓS REALIZAR
-                    if (error) { return res.status(500).send({ error: error }) }
-                    res.status(201).send({
-                        mensagem: 'Atualizado ' + tpquery + ' com Sucesso!',
-                        resultado
-                    })
                 })
             }
         })
-    })
+})
 });
 
 

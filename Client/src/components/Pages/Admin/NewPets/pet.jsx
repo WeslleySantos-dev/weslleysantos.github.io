@@ -27,6 +27,26 @@ async function Aprove(idPet) {
             }
         }
     }
+}
+
+
+
+async function Remove(idPet) {
+    if (confirm("Deseja Realmente Excluir o cadastro deste pet ? " + '\n' + thispet.NomePet)) {
+        try {
+            await API.delete('/pet/delete/'+ thispet.idPet ).then((response) => {
+                var response = response.data.Mensagem
+                alert(response)
+                window.location.replace('/release')
+            });
+        } catch (error) {
+            if (error.response.data == 'Falha na autenticação') {
+                alert('Sessão Expirada !')
+                window.location.replace('/login')
+                localStorage.clear();
+            }
+        }
+    }
 
 }
 
@@ -86,7 +106,10 @@ export default class Petadmin extends Component {
                         <div className="Myhistory Pet">
                             <h2>Minha História</h2>
                             <br />
-                            <button className='btnSubmit' id='approve' onClick={Aprove} >Aprovar</button>
+                            <div id='adminbtns'>
+                                <button className='btnSubmit adminbtn' id='approve' onClick={Aprove} >Aprovar</button>
+                                <button className='btnSubmit adminbtn' id='delete' onClick={Remove} >Excluir</button>
+                            </div>
 
                             <h3>Adote {prefix} {pet.NomePet}</h3>
                             <h4>{pet.Sexo}</h4>

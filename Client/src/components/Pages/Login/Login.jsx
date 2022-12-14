@@ -25,7 +25,7 @@ export default function login() {
     //     }
     // });
 
-  
+
 
     const [values, setValues] = useState();
     const handleChangeValues = (value) => {
@@ -33,6 +33,7 @@ export default function login() {
             ...prevalue,
             [value.target.name]: value.target.value,
         }));
+        document.getElementById('mensagem').innerText = ''
     };
     const handleClickButton = async () => {
         await login(
@@ -42,8 +43,6 @@ export default function login() {
 
     };
     const handleEnterkey = async (key) => {
-        console.log(key.key)
-        console.log(values)
         if (key.key == 'Enter') {
             await login(
                 values.login,

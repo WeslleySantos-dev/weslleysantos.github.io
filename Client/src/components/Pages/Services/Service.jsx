@@ -25,7 +25,6 @@ class OneServices extends Component {
 
     render() {
         var Services = this.state.infoService;
-
         return (
             <div className="ProductPage">
 
@@ -40,7 +39,7 @@ class OneServices extends Component {
                         <h2 className="Produto-Name">{Services.Nome}</h2>
                         <p>{Services.Fornecedor}</p>
                         <br />
-                        <p className="Produto-Value">R$  {Services.Preco}</p>
+                        <p className="Produto-Value">{Services.Preco}</p>
                         <button id='contactFonecedor'><a id='link-Wpp' href={'https://api.whatsapp.com/send?phone=55' + Services.Fone + '&text=Olá!%20Vim%20através%20do%20Cantinho%20Pet%20Stop%20Gostaria%20de%20Saber%20mais%20sobre%20o%20produto%20' + Services.Nome} target={'_blank'}>Conversar com anunciante <img src={wpp} alt="whatsapp link" /></a></button>
                     </div>
                 </div>

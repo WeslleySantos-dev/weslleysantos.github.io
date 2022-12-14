@@ -15,10 +15,31 @@ var thisproduct = []
 IdProduct = idPet
 
 
-async function Aprove(idPet) {
+async function Aprove(IdProduct) {
     if (confirm("Deseja Realmente aprovar o cadastro deste produto ? " + '\n' + thisproduct.Nome)) {
         try {
             await API.patch('/products/release', { id: thisproduct.id }).then((response) => {
+                var response = response.data.Mensagem
+                alert(response)
+                window.location.replace('/release')
+            });
+        } catch (error) {
+            if (error.response.data == 'Falha na autenticação') {
+                alert('Sessão Expirada !')
+                window.location.replace('/login')
+                localStorage.clear();
+            }
+        }
+    }
+
+}
+
+async function Remove(IdProduct) {
+    let mensagem = ''
+    if (thisproduct.ProdutoServico == 'P') { mensagem = 'Deseja Realmente Excluir o cadastro deste produto ?' } else { mensagem = 'Deseja Realmente Excluir o cadastro deste Serviço ?' }
+    if (confirm(mensagem + '\n' + thisproduct.Nome)) {
+        try {
+            await API.delete('/products/delete/' + thisproduct.id).then((response) => {
                 var response = response.data.Mensagem
                 alert(response)
                 window.location.replace('/release')
@@ -41,15 +62,15 @@ class OneProductAdmin extends Component {
 
     async componentDidMount() {
         if (this.state.infoproducts.length === 0) {
-             const response = await API.post('/Products/' + IdProduct); 
-             this.setState({ infoproducts: response.data.Produtos[0] }); 
-             thisproduct = response.data.Produtos[0]
-             te ++
-            }
-            
-            console.log(te)
-        }    
-        render() {
+            const response = await API.post('/Products/' + IdProduct);
+            this.setState({ infoproducts: response.data.Produtos[0] });
+            thisproduct = response.data.Produtos[0]
+            te++
+        }
+
+        console.log(te)
+    }
+    render() {
         var Products = this.state.infoproducts;
         var aux, Variacoes = []
         if (Products.Tamanhos == 'S') {
@@ -115,8 +136,11 @@ class OneProductAdmin extends Component {
                             </select>
 
                             <button id='contactFonecedor'><a id='link-Wpp' href={'https://api.whatsapp.com/send?phone=55' + Products.Fone + '&text=Olá!%20Vim%20através%20do%20Cantinho%20Pet%20Stop%20Gostaria%20de%20Saber%20mais%20sobre%20o%20produto%20' + Products.Nome} target={'_blank'}>Conversar com vendedor <img src={wpp} alt="whatsapp link" /></a></button>
-                            <button className='btnSubmit admin' id='approve' onClick={Aprove} >Aprovar</button>
-                        
+                            <div id='adminbtns'>
+                                <button className='btnSubmit adminbtn' id='approve' onClick={Aprove} >Aprovar</button>
+                                <button className='btnSubmit adminbtn' id='delete' onClick={Remove} >Excluir</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -137,7 +161,10 @@ class OneProductAdmin extends Component {
                         <br />
                         <p className="Produto-Value">R$  {Products.Preco}</p>
                         <button id='contactFonecedor'><a id='link-Wpp' href={'https://api.whatsapp.com/send?phone=55' + Products.Fone + '&text=Olá!%20Vim%20através%20do%20Cantinho%20Pet%20Stop%20Gostaria%20de%20Saber%20mais%20sobre%20o%20produto%20' + Products.Nome} target={'_blank'}>Conversar com vendedor <img src={wpp} alt="whatsapp link" /></a></button>
-                        <button className='btnSubmit admin' id='approve' onClick={Aprove} >Aprovar</button>
+                        <div id='adminbtns'>
+                            <button className='btnSubmit adminbtn' id='approve' onClick={Aprove} >Aprovar</button>
+                            <button className='btnSubmit adminbtn' id='delete' onClick={Remove} >Excluir</button>
+                        </div>
                     </div>
                 </div>
 

@@ -43,3 +43,10 @@
 #NovosPets{
     margin-top: 2.4rem;
 }
+
+#adminbtns{
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+}
+

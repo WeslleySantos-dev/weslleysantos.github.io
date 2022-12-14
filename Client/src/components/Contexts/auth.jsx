@@ -43,6 +43,8 @@ export const AuthProvider = ({ children }) => {
                 ID: (Usuario.id),
                 Nome: (Usuario.Nome),
                 Usuario: (Usuario.Usuario),
+                Sobrenome: (Usuario.Sobrenome),
+                Login: (Usuario.Login),
                 email: (Usuario.email)
             });
         } else {
@@ -54,7 +56,6 @@ export const AuthProvider = ({ children }) => {
 
     const login = async (Login, password) => {
         try {
-            setloading(true);
             console.log("login", { Login, password });
             await API.post('/login', {
                 Login: Login,
@@ -77,8 +78,10 @@ export const AuthProvider = ({ children }) => {
                     if (Usuario.id) {
                         setUser({
                             ID: (Usuario.id),
-                            Nome: (Usuario.Nome),
                             Usuario: (Usuario.Usuario),
+                            Nome: (Usuario.Nome),
+                            Sobrenome: (Usuario.Sobrenome),
+                            Login: (Usuario.Login),
                             email: (Usuario.email)
                         });
                         if (!user) {
@@ -89,8 +92,8 @@ export const AuthProvider = ({ children }) => {
                 }
             });
         } catch (error) {
-            document.getElementById('mensagem').innerText = error.response.data
             console.log(error.response.data)
+            document.getElementById('mensagem').innerText = error.response.data
         }
         setloading(false);
 
@@ -243,33 +246,33 @@ export const AuthProvider = ({ children }) => {
     const newProduct = async (Nome, Fornecedor, Desc, Preco, ProdServ, Tamanhos, Medidas, Peso, Volume, Tamanho, Fone, Imagem, Usuario) => {
         console.log('Cadastrando Produto...');
         console.log(Nome, Desc, Preco, ProdServ, Tamanhos, Medidas, Peso, Volume, Tamanho, Fone, Imagem, Usuario);
-      
-            await API.post('/products/newproduct', {
-                Nome: Nome,
-                Fornecedor: Fornecedor,
-                Descricao: Desc,
-                Preco: Preco,
-                ProdServ: ProdServ,
-                Tamanhos: Tamanhos,
-                Medidas: Medidas,
-                Peso: Peso,
-                Volume: Volume,
-                Tamanho: Tamanho,
-                Fone: Fone,
-                Imagem: Imagem,
-                Usuario: Usuario
-            }).then((response) => {
-                    var Mensagem = response.data.mensagem;
-                    console.log(response.data);
-                    alert(Mensagem);
-                    if (!confirm('Deseja adicionar mais Produtos ?')) {
-                        navigate('/');
-                    } else {
-                        window.location.reload();
-                    }
-                }
-            );
-              setloading(false);
+
+        await API.post('/products/newproduct', {
+            Nome: Nome,
+            Fornecedor: Fornecedor,
+            Descricao: Desc,
+            Preco: Preco,
+            ProdServ: ProdServ,
+            Tamanhos: Tamanhos,
+            Medidas: Medidas,
+            Peso: Peso,
+            Volume: Volume,
+            Tamanho: Tamanho,
+            Fone: Fone,
+            Imagem: Imagem,
+            Usuario: Usuario
+        }).then((response) => {
+            var Mensagem = response.data.mensagem;
+            console.log(response.data);
+            alert(Mensagem);
+            if (!confirm('Deseja adicionar mais Produtos ?')) {
+                navigate('/');
+            } else {
+                window.location.reload();
+            }
+        }
+        );
+        setloading(false);
     }
 
 

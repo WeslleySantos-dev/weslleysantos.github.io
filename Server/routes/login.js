@@ -3,7 +3,8 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('../mysql').pool;
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { use } = require('./questions');
 var verify = Boolean
 
 const saltRounds = 10;
@@ -16,7 +17,7 @@ router.post('/', (req, res, next) => {
         let user = ''
         let hash = ''
         Conn.query(
-            'Select id, Nome, Usuario,PassUser,email, Fone from users where login = ? or email =?;', [Login, Login], async (error, resultado, fields) => {
+            'Select id, Nome, Usuario, Sobrenome, Login,PassUser,email, Fone from users where login = ? or email =?;', [Login, Login], async (error, resultado, fields) => {
                 if (resultado != "") {
                     user = resultado[0];
                     hash = [user.PassUser].toString();
@@ -42,6 +43,8 @@ router.post('/', (req, res, next) => {
                                 let LoginUser = {
                                     Nome: user.Nome,
                                     Usuario: user.Usuario,
+                                    Sobrenome: user.Sobrenome,
+                                    Login:user.Login,
                                     email: user.email,
                                     Fone: user.Fone,
                                     id: user.id
@@ -58,7 +61,7 @@ router.post('/', (req, res, next) => {
                                     token: token,
                                     Usuario: LoginUser
                                 });
-                            } return res.status(401).send('unauthorized')
+                            } return res.status(401).send('Usuário inválido')
                         }, 500);
 
 

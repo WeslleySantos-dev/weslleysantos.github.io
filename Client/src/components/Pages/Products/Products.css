@@ -1,7 +1,9 @@
 .Products {
     display: flex !important;
     flex-direction: row;
-    height: min-content !important;
+    overflow-x: scroll !important;
+    overflow-y: hidden;
+height: min-content !important;
     gap: 0.5rem;
 justify-content: center
 }

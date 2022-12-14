@@ -19,6 +19,7 @@ import Productadmin from "../Pages/Admin/NewProducts_Services/OneProductAdmin"
 import Services from "../Pages/Services/allservices"
 import Products from "../Pages/Products/AllProducts"
 import ServiceUniq from "../Pages/Services/Service"
+import Questiopns from "../Pages/Questions/questions.jsx"
 
 
 import { Topbar } from '../TopBar/TopBar'
@@ -80,6 +81,7 @@ export default function AppRoutes() {
                     <Route exact path="/pet/:idPet" element={<Pet />} />
                     <Route exact path="/newpet" element={<Private><NewPet /></Private>} />
                     <Route exact path="/newproduct" element={<Private><NewProduct /></Private>} />
+                    <Route exact path="/perguntas-frequentes" element={<Questiopns/>}/>
                 </Routes>
                 <Topbar />
                 

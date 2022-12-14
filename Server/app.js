@@ -12,6 +12,7 @@ const rotaServices = require('./routes/services');
 const rotaLogin = require('./routes/login');
 const rotaUpdate = require('./routes/update');
 const rotaForgot = require('./routes/forgot');
+const rotaQuestions = require('./routes/questions');
 const auth = require('./routes/auth');
 
 app.use(morgan('dev'));
@@ -42,6 +43,7 @@ app.use('/banner', cors(), rotaBanner);
 app.use('/pet', cors(), rotaPet);
 app.use('/update', cors(), rotaUpdate);
 app.use('/forgot', cors(), rotaForgot);
+app.use('/questions',cors(), rotaQuestions)
 app.use('/auth', cors());
 
 app.use((req, res, next) => {

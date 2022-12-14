@@ -1,3 +1,23 @@
-#Settings{
-    top: 8.2rem;
+#Settings {
+    padding-top: 2.4rem;
+}
+
+#Dados {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 0 auto;
+    gap: 0.4rem;
+}
+
+#Dados span {
+    display: flex;
+    gap: 1rem;
+}
+
+#Dados span:last-child {
+    display: flex;
+    width: 100%;
+    
+    justify-content: flex-end;
 }

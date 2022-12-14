@@ -33,7 +33,8 @@ class Adoptions extends Component {
             } else if (animal.Sexo == 'F') {
                 animal.Sexo = 'Fêmea'
             }
-
+            let data = animal.Data.split('-')
+            animal.Data = data[2] + '/' + data[1] + '/' + data[0]
         });
         return (
             <div class='Adoption'>

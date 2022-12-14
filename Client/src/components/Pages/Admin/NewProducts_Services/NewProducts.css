@@ -30,7 +30,7 @@
 #contact {
     height: 1.5rem;
 }
-#approve{
+.adminbtn{
     margin-top: 1rem;
     display: flex;
     cursor: pointer !important;
@@ -39,6 +39,7 @@
     align-self: center;
     justify-content: center;
     height: 1rem;
+    margin-left: 1rem !important;
 }
 
 

@@ -30,6 +30,16 @@ body {
     justify-content: space-between;
 }
 
+.Questions {
+    display: flex;
+    padding-top: 2.4rem;
+    height: calc(100% - 8.2rem);
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+
+}
+
 .toppage {
     width: 100%;
 
@@ -172,7 +182,7 @@ body {
 
     }
 
-    
+
     .Card .infopets a img {
         width: 15rem;
         height: 100%;
@@ -223,6 +233,7 @@ body {
         margin-bottom: 0.4rem;
         height: 15rem;
         justify-content: center;
+        width: fit-content;
     }
 
     .App .Welcome {
@@ -354,5 +365,12 @@ body {
         width: 100%;
     }
 
+    .question {
+        width: 100% !important;
+    }
 
+
+    .sub-card{
+        width: 75% !important;
+    }
 }

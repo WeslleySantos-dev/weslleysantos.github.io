@@ -99,4 +99,19 @@ router.post('/:id_product', (req, res, next) => {
         )
     })
 });
+
+router.delete('/delete/:id', (req, res, next) => {
+    console.log(req.params.id)
+    let id = req.params.id
+    mysql.getConnection((error, conn) => {
+        conn.query('delete from Products where id =?', [id], (error, resultado, fields) => {
+            if (error) {
+                return res.status(500).send({ error: error })
+            } else {
+                return res.status(201).send({Mensagem : 'Deletado com sucesso'})
+            }
+        })
+    })
+}
+);
 module.exports = router;
