@@ -2,6 +2,7 @@ import './questions.css'
 import react, { Component } from 'react'
 import API from '../../API/API.JSX';
 import { Navigate } from "react-router-dom";
+import Copyright from '../../Rodape/Copyright'
 
 var all = []
 var Perguntas = []
@@ -46,6 +47,25 @@ const handleEnterkeyadmin = (btn) => {
     }
 };
 
+const hiddenPergunta = (btn) => {
+    console.log
+    if (confirm('Deseja ocultar esta pergunta ?')) {
+        API.patch('/questions/hidden', { id: btn.target.id }).then((response) => {
+            alert(response.data.mensagem)
+            window.location.reload()
+        })
+    }
+};
+
+const deletePergunta = (btn) => {
+    if (confirm('Deseja excluir esta pergunta ?')) {
+        API.patch('/questions/delete', { id: btn.target.id }).then((response) => {
+            alert(response.data.mensagem)
+            window.location.reload()
+        })
+    }
+};
+
 class Questions extends Component {
     //export default function Questiopns() {
     state = {
@@ -77,26 +97,27 @@ class Questions extends Component {
                         }
                     });
                 }
-            }else{
-            if (this.state.questions == 0) {
-                let response = await API.get('/questions');
-                this.setState({ questions: response.data.Questions })
-                this.setState({ questions: response.data.Respostas })
+            } else {
+                if (this.state.questions == 0) {
+                    let response = await API.get('/questions');
+                    this.setState({ questions: response.data.Questions })
+                    this.setState({ questions: response.data.Respostas })
 
-                all = response.data.Questions
-                all.forEach(element => {
-                    if (element.RorP == 'P') {
-                        console.log('entrou')
-                        all.forEach(element2 => {
-                            if (element2.Fk !== '') {
-                                if (element.id == element2.Fk) {
-                                    element.Resposta = element2.Resposta
+                    all = response.data.Questions
+                    all.forEach(element => {
+                        if (element.RorP == 'P') {
+                            console.log('entrou')
+                            all.forEach(element2 => {
+                                if (element2.Fk !== '') {
+                                    if (element.id == element2.Fk) {
+                                        element.Resposta = element2.Resposta
+                                    }
                                 }
-                            }
-                        })
-                    }
-                });
-            }}
+                            })
+                        }
+                    });
+                }
+            }
         } else {
             if (this.state.questions == 0) {
                 let response = await API.get('/questions');
@@ -159,10 +180,13 @@ class Questions extends Component {
                                 <div id='resposta' key={pergunta.id}>
                                     <div>
                                         <input name={pergunta.id} id={pergunta.id} type="text" placeholder='Resposta' required onKeyDown={handleEnterkeyadmin} />
+                                        <button className='submit-form' id={pergunta.id} onClick={hiddenPergunta}>Ocultar Pergunta</button>
+                                        <button className='submit-form' id={pergunta.id} onClick={deletePergunta}>Excluir Pergunta</button>
                                     </div>
                                 </div>
                             </div>
                         )}
+                    <Copyright/>
                     </div>
                 )
             }
@@ -188,8 +212,7 @@ class Questions extends Component {
                         </div>
                     </div>
                 </div>
-
-
+<Copyright/>
             </div>
         )
 

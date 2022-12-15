@@ -21,7 +21,7 @@ async function Aprove(IdProduct) {
             await API.patch('/products/release', { id: thisproduct.id }).then((response) => {
                 var response = response.data.Mensagem
                 alert(response)
-                window.location.replace('/release')
+                window.location.replace('/releaseProducts')
             });
         } catch (error) {
             if (error.response.data == 'Falha na autenticação') {
@@ -42,7 +42,7 @@ async function Remove(IdProduct) {
             await API.delete('/products/delete/' + thisproduct.id).then((response) => {
                 var response = response.data.Mensagem
                 alert(response)
-                window.location.replace('/release')
+                window.location.replace('/releaseProducts')
             });
         } catch (error) {
             if (error.response.data == 'Falha na autenticação') {

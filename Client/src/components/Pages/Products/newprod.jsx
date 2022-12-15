@@ -43,7 +43,7 @@ export default function Home() {
             ...prevalue,
             [value.target.name]: value.target.value,
         }));
-
+        console.log(value.target)
         if (value.target.name == "Nome") { document.getElementsByClassName("msgalert")[1].innerText = '' }
         if (value.target.name == "Desc") { document.getElementsByClassName("msgalert")[2].innerText = '' }
         if (value.target.name == "Preco") { document.getElementsByClassName("msgalert")[3].innerText = '' }
@@ -69,6 +69,15 @@ export default function Home() {
                 document.querySelector('#Fone').value = formatPhone
             }
 
+        }
+
+        if (value.target.name == "Preco") {
+            let number = document.querySelector('#Preco').value
+            let isnanteste = number.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
+            if (isNaN(isnanteste)) {
+                console.log(isnanteste)
+                document.querySelector('#Preco').value = document.querySelector('#Preco').value.slice(0, -1)
+            }
         }
 
         if (value.target.name == "ProdServ") {
@@ -268,7 +277,7 @@ export default function Home() {
                     <div className='sub'>
                         <label htmlFor="Preco">Preço:</label>
                         <input
-                            type="text"
+                            type='number'
                             name="Preco"
                             id="Preco"
                             placeholder='R$ 999,99'

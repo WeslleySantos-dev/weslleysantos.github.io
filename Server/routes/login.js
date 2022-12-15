@@ -44,7 +44,7 @@ router.post('/', (req, res, next) => {
                                     Nome: user.Nome,
                                     Usuario: user.Usuario,
                                     Sobrenome: user.Sobrenome,
-                                    Login:user.Login,
+                                    Login: user.Login,
                                     email: user.email,
                                     Fone: user.Fone,
                                     id: user.id
@@ -72,5 +72,48 @@ router.post('/', (req, res, next) => {
     })
 });
 
+router.post('/verify', (req, res, next) => {
+    mysql.getConnection(async (error, Conn) => {
+        const { id, password } = req.body;
+        // res.status(200).send({mensagem: id password})
+        const salt = await bcrypt.genSalt(saltRounds)
+        let user = ''
+        let hash = ''
+        Conn.query(
+            'Select PassUser from users where id =' + id, async (error, resultado, fields) => {
+                if (resultado != "") {
+                    user = resultado[0];
+                    hash = [user.PassUser].toString();
+                }
+
+                Conn.release();
+                if (error) {
+                    return res.status(500).send({ error: error })
+                } else {
+                    if (resultado === "") {
+                        res.status(400).send({
+                            Mensagem: 'unauthorized'
+                        })
+                    } else {
+                        bcrypt.compare(password, hash, function (Error, Result) {
+                            if (Result) { verify = Result } else { verify = false }
+                            err = Error
+                        });
+                        setTimeout(function () {
+                            if (verify == false) {
+
+                                return res.status(400).send({ mensagem: 'Senha Inválida' })
+                            } else if (verify == true) {
+                                console.log('2')
+                                return res.status(200).send({
+                                    mensagem: 'autorizado'
+                                });
+                            } return res.status(401).send('Senha Inválida')
+                        }, 500);
+                    }
+                }
+            })
+    })
+})
 
 module.exports = router;

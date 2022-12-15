@@ -50,19 +50,20 @@
 
 .Questions {
     gap: 1rem;
+    padding-bottom: 4rem;
+    background-color: inherit;
 }
 
 #resposta div {
     display: flex;
     flex-direction: column;
-    width: 80%;
+    width: 100%;
     text-align: left;
     gap: 0.4rem;
     
 }
 
 #resposta div input {
-    width: 100%;
     outline-offset: none;
     outline-style: solid;
     outline-width: 0;

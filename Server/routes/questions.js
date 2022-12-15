@@ -112,4 +112,52 @@ router.post('/newquestions', async (req, res) => {
 
 });
 
+router.patch('/:options', (req, res, next) => {
+    console.log(req.params.options)
+    console.log(req.body)
+    const { id } = req.body
+
+    if (req.params.options == 'hidden') {
+        mysql.getConnection((error, conn) => {
+            if (error) { return res.status(500).send({ error: error }) };
+            conn.query(
+                'update commonquestions set status=1 where id=?;', [id],
+                (error, resultado, fields) => {
+                    conn.release();
+                    if (error) { return res.status(500).send({ error: error }) }
+                    return res.status(200).json({ mensagem: 'Pergunta ocultada com sucesso' })
+
+                }
+            );
+        });
+    } else {
+        mysql.getConnection((error, conn) => {
+            if (error) { return res.status(500).send({ error: error }) };
+            conn.query(
+                'delete from commonquestions where id=?;', [id],
+                (error, resultado, fields) => {
+                    if (error) {
+                        conn.release();
+                        return res.status(500).send({ error: error })
+                    }
+                    conn.query(
+                        'delete from commonquestions where Fk=?;', [id],
+                        (error, resultado, fields) => {
+                            if (error) {
+                                conn.release();
+                                return res.status(500).send({ error: error })
+                            }
+                        }
+                    );
+                    conn.release();
+                    return res.status(200).json({ mensagem: 'Pergunta excluida com sucesso' })
+
+                }
+            );
+        });
+    }
+
+});
+
+
 module.exports = router;

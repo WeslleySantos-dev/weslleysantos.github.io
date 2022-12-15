@@ -172,6 +172,7 @@
     justify-content: center;
     align-items: center;
     background-color: inherit;
+    padding-bottom: 4rem;
 }
 
 #NossosServicos .Card {
@@ -190,6 +191,8 @@
     align-content: center;
     justify-content: center;
     align-items: center;
+    padding-bottom: 4rem;
+    background-color: inherit;
 }
 
 #NossosProdutos .Card {
@@ -240,9 +243,10 @@
 .InfoServicos {
     display: flex;
     flex-direction: column;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     font-size: 1.25rem;
+    width: 8rem;
     color: rgb(48, 29, 16);
     font-family: 'Times New Roman', Times, serif;
     text-align: left;

@@ -86,7 +86,7 @@ class OneProduct extends Component {
                             <h2 className="Produto-Name">{Products.Nome}</h2>
                             <p>{Products.Fornecedor}</p>
                             <br />
-                            <p className="Produto-Value">R$ { Products.Preco}</p>
+                            <p className="Produto-Value">R$ {Products.Preco}</p>
                             <select name="" id="SelectVariations">
                                 <option value="">Veja as Variações</option>
                                 {Variacoes.map(tamanho =>

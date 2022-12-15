@@ -28,7 +28,23 @@ export default function Home() {
         }));
         console.log(values);
         if (value.target.name == "login") { document.getElementById('inputemail').innerText = '' }
-        if (value.target.name == "fone") { document.getElementById('inputfone').innerText = '' }
+        if (value.target.name == "fone") {
+            document.getElementById('inputfone').innerText = ''
+
+            let number = document.querySelector('#fone').value
+            let isnanteste = number.replace(' ', '').replace('(', '').replace(')', '').replace('-', '')
+            if (isNaN(isnanteste)) {
+                document.querySelector('#fone').value = document.querySelector('#fone').value.slice(0, -1)
+            } else {
+                var phone = isnanteste
+                var formatPhone = ''
+                formatPhone = phone.replace(/(\d{2})(\d{5})(\d{4})/,
+                    function (regex, arg0, arg1, arg2) {
+                        return '(' + arg0 + ') ' + arg1 + '-' + arg2;
+                    });
+                document.querySelector('#fone').value = formatPhone
+            }
+        }
 
         if (value.target.name == "confirm") {
 

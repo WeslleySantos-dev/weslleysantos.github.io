@@ -2,7 +2,7 @@
     display: flex;
     margin-top: 2.4rem;
     width: 100%;
-    height: calc(100% - 8.2rem);
+    /* height: calc(100% - 8.2rem); */
     position: absolute;
     }
 
@@ -39,7 +39,8 @@
         inset 0 -3em 3em rgba(0, 0, 0, 0.2),
         0 0 0 0px rgb(245, 245, 245),
         0.3em 0.3em 1em rgba(0, 0, 0, 0.4);
-    margin-bottom: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 2rem !important;
 }
 
 .ProductSelect .Produto-Name {

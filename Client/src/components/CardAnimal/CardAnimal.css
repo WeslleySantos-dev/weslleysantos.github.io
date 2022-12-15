@@ -49,6 +49,7 @@
     flex-direction: column;
     padding-left: 2rem;
     padding-right: 2rem;
+    width: 10rem;
     font-size: 1.25rem;
     color: rgb(48, 29, 16);
     font-family: 'Times New Roman', Times, serif;
@@ -88,7 +89,7 @@
     color: rgb(244, 235, 230);
     border-radius: 2rem;
     text-decoration: none;
-    margin-inline: 2rem;
+    /* margin-inline: 2rem; */
     align-content: center;
     text-align: center;
 }

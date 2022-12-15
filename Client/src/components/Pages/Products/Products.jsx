@@ -39,12 +39,12 @@ class Products extends Component {
         return (
             <div id="productshome">
 
-                <a classname="showAll" href="">Mostrar Todos</a>
+                <a classname="showAll" href="/products">Mostrar Todos</a>
                 <div className="Products">
                     {Products.map(produto =>
                         <div key={produto.id} className="Product" >
                             <img id={produto.id} className="ImgProduct" onClick={selectproduct} src={produto.Imagem} alt="Imagem de um produto" />
-                            <p className="Produto-Name" >{produto.Nome.substring(0, 60) + "..."}</p>
+                            <p className="Produto-Name" >{produto.Nome.substring(0, 50) + "..."}</p>
                             <p className="Produto-Value">R$  {produto.Preco}</p>
                             <button id={produto.id} className="ButtonBuy" onClick={selectproduct}>Ver Produto</button>
                         </div>

@@ -117,6 +117,7 @@ export const AuthProvider = ({ children }) => {
                     document.getElementById('inputemail').innerText = `${mensagem}`
                 } else {
                     var INPUTfone = document.getElementById("_fone");
+                    document.getElementById('inputemail').innerText = ''
                     INPUTfone.style.display = 'flex';
                     var id = response.data.id[0].id
                     console.log(id)
@@ -163,7 +164,6 @@ export const AuthProvider = ({ children }) => {
                         var fone = document.getElementById("fone");
                         console.log(login.value)
                         console.log(fone.value)
-
 
                     } else { document.getElementById('mensagem').innerText = `Este numero de celular já está vinculado a outro usuario` }
                 }
@@ -277,6 +277,11 @@ export const AuthProvider = ({ children }) => {
 
 
     const forgotupdate = async (id, password) => {
+        var Newpassword = document.getElementById("_password");
+        var confirmPassword = document.getElementById("_Newpassword");
+        confirmPassword.style.display = 'none';
+        Newpassword.style.display = 'none';
+        document.getElementById('mensagem').innerText = 'Atualizando...';
 
         await API.patch('/update/password', {
             id: id,
@@ -293,7 +298,7 @@ export const AuthProvider = ({ children }) => {
 
         setTimeout(function () {
             navigate('/login');
-        }, 4000);
+        }, 2000);
 
 
     }
