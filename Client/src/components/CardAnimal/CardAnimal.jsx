@@ -1,7 +1,6 @@
 import react, { Component } from 'react'
 
 import './CardAnimal.css';
-import gatinho from '../../assets/imagens/cat.jpg';
 import API from '../API/API.JSX';
 
 

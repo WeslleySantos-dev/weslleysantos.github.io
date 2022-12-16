@@ -11,7 +11,10 @@ router.get('/', (req, res, next) => {
             'Select * from Pets where status = 0 order by idpet desc LIMIT 8;',
             (error, resultado, fields) => {
                 conn.release();
-                if (error) { return res.status(500).send({ error: error }) }
+                if (error) {
+                    console.log(error.message)
+                    return res.status(500).send({ error: error })
+                }
                 return res.status(200).json({ Pets: resultado })
             }
         );
@@ -20,7 +23,10 @@ router.get('/', (req, res, next) => {
 
 router.get('/all', (req, res, next) => {
     mysql.getConnection((error, conn) => {
-        if (error) { return res.status(500).send({ error: error }) };
+        if (error) {
+            console.log(error)
+            return res.status(500).send({ error: error })
+        };
         conn.query(
             'Select * from Pets where status = 0 order by idpet desc;',
             (error, resultado, fields) => {

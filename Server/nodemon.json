@@ -1,9 +1,9 @@
 {
     "env": {
-        "MYSQL_USER": "Admin",
-        "MYSQL_PASSWORD": "root",
-        "MYSQL_DATABASE": "cantinhopet",
-        "MYSQL_HOST": "localhost",
+        "MYSQL_HOST": "us-cdbr-east-06.cleardb.net",
+        "MYSQL_USER": "b3b68482229d73",
+        "MYSQL_PASSWORD": "0bdadf60",
+        "MYSQL_DATABASE": "heroku_c2cbe15fff51f9c",
         "MYSQL_PORT": 3306,
         "JWT_KEY": "Noya"
     }
